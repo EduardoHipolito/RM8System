@@ -1,0 +1,28 @@
+<Grid class="grid-default" [setings]="_gridSetings">
+</Grid>
+
+<div class="modal fade modal-fade" id="historyModal" tabindex="-1" role="dialog" data-backdrop="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="historyModalLabel">Endereço</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <Grid class="grid-default" [setings]="_gridHistorySetings">
+                </Grid>
+
+                <!-- <div ngFor="let item of _stockHistoryList" class="row">
+                    <span><b>Nome: </b>{{item.ProductName}}</span>
+                    <span><b>Descrição: </b>{{item.StockTypeString}}</span>
+                    <span><b>Quantidade: </b>{{item.Quantity}}</span>
+                    <span><b>Fornecedor: </b>{{item.SupplierName}}</span>
+                    <span><b>Cliente: </b>{{item.CustomerName}}</span>
+                    <span><b>Nome: </b>{{item.CreateDateString}}</span>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

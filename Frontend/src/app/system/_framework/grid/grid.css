@@ -1,0 +1,175 @@
+th, td { 
+  resize: both; 
+  overflow: auto; 
+max-width: 1000000% !important;
+max-height:0.5em;
+}
+th{
+padding: 0.5em !important;
+}
+td{
+padding: 0.35em !important;
+}
+tbody>tr:hover
+{  
+  background-color: rgba(50, 144, 156, 0.6) !important;
+    color: #fff !important;
+}
+tbody>tr
+{  
+cursor: pointer;
+}
+.Tabela{
+  max-height: 90% !important;
+  overflow: auto;
+  margin: 30px 5px 5px 5px;
+}
+
+tfoot{
+  font-size: 16px;
+}
+
+.GridCollumSerch{
+height:2em;
+}
+
+pagination-controls /deep/ .ng2-pagination li {
+ cursor:pointer;
+}
+pagination-controls /deep/ .ng2-pagination {
+      margin-left: 1.5em;
+ position:fixed;
+}
+pagination-controls /deep/ .ng2-pagination .current{
+  background-color: rgba(50, 144, 156, 0.9);
+}
+
+pagination-controls /deep/ .ng2-pagination .disabled{
+        cursor: no-drop;
+}
+
+
+.responstable {
+  width: 100%;
+  overflow: hidden;
+  background: #FFF;
+  color: #282828;
+  border-radius: 10px;
+  border: 1px solid rgba(50, 144, 156, 0.9);
+  line-height: 1em;
+}
+.responstable tr {
+  border: 1px solid #D9E4E6;
+}
+.responstable tr:nth-child(odd) {
+  background-color: rgba(50, 144, 156, 0.15);
+}
+.responstable th {
+    display: table-cell;
+  padding: 1em;
+}
+.responstable th:first-child {
+  display: table-cell;
+  text-align: center;
+}
+.responstable th:nth-child(2) {
+  display: table-cell;
+}
+.responstable th:nth-child(2) span {
+  display: none;
+}
+.responstable th:nth-child(2):after {
+  content: attr(data-th);
+}
+@media (min-width: 480px) {
+  .responstable th:nth-child(2) span {
+    display: block;
+  }
+  .responstable th:nth-child(2):after {
+    display: none;
+  }
+}
+.responstable td {
+    display: table-cell;
+  word-wrap: break-word;
+  max-width: 7em;
+}
+.responstable td:first-child {
+  display: table-cell;
+  text-align: center;
+  border-right: 1px solid #D9E4E6;
+}
+@media (max-width: 645px) {
+pagination-controls /deep/ .ng2-pagination li {
+ display:none;
+}
+pagination-controls /deep/ .ng2-pagination .pagination-next{
+  display: inline-block !important;
+}
+pagination-controls /deep/ .ng2-pagination .pagination-previous
+{
+  display: inline-block !important;
+}
+}
+.responstable th, .responstable td {
+  text-align: center;
+  margin: .5em 1em;
+}
+/* @media (min-width: 80px) {
+  .responstable th, .responstable td {
+  }
+} */
+
+
+
+.checkboxFour {
+	width: 25px;
+	height: 25px;
+	background: #ddd;
+
+	border-radius: 100%;
+	position: relative;
+	box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+      margin-left: auto;
+    margin-right: auto;
+}
+.checkboxFour label {
+	display: block;
+	width: 15px;
+	height:15px;
+	border-radius: 100px;
+
+	transition: all .5s ease;
+	cursor: no-drop;
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	z-index: 1;
+
+	background: #333;
+	box-shadow:inset 0px 1px 3px rgba(0,0,0,0.5);
+}
+.checkboxFour input[type=checkbox]:checked + label {
+	background: rgba(50, 144, 156, 0.9);
+}
+ul{
+      padding: 0px !important;
+}
+.grid-row-div-image{
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+.grid-row-div-image img{
+  margin-top: 13%;
+  height: 25em;
+}
+.grid-row-image:hover + .grid-row-div-image{
+  display: block;
+}

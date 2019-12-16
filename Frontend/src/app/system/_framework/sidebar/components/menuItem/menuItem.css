@@ -1,0 +1,9 @@
+.SelectItem {
+    background-color: #f6f6f6;
+    border-bottom: solid #035468 !important;
+}
+
+.SelectItem span
+{
+color: black;
+}

@@ -1,0 +1,33 @@
+.summary-container{
+    border: 3px solid #e7e7e7;
+    padding: 0px;
+}
+.summary-container-header{
+    background: linear-gradient( 135deg, #034d63 10% , #008793 100%);
+    color: white;
+    padding: 5px;
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 0.5em;
+}
+
+.summary-container-header p{
+margin-bottom: 0px;
+}
+
+.summary-container-btnconfirm {
+    text-align: center;
+}
+
+.summary-container-btnconfirm >button{
+    margin-bottom: 0.5em;
+}
+
+.summary-container >p{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.summary-container >b{
+    margin-left: 10px;
+    margin-right: 10px;
+}

@@ -1,0 +1,39 @@
+<div style="flex: 1;" class="backgroung ">
+
+  <div class="system-description">
+      <img src="./assets/Roma.png">
+      <h3>Simples e fácil. </h3>
+      <h4>Cuidamos da sua empresa para você!</h4>
+  </div>
+  <div>
+    <div class="auth-block">
+      <h2 style="text-align: center">Acesso</h2>
+      <a href="reg.html" style="margin-top: 5%;" class="auth-link">Novo por aqui? Conhceça já!</a>
+
+      <form class="form-horizontal" [formGroup]="form" (ngSubmit)="onSignin()">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-6 col-sm-6 col-md-6 col-lg-6	col-xl-6">
+              <input id="UserName" type="text" class="validate form-control" formControlName="UserName" [class.invalid]="form.controls['UserName'].touched && !form.controls['UserName'].valid">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-6 col-sm-6 col-md-6 col-lg-6	col-xl-6">
+              <input id="Password" type="password" class="validate form-control" formControlName="Password" [class.invalid]="form.controls['Password'].touched && !form.controls['Password'].valid">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">
+              <button type="submit" class="btn btn-blue btn-auth">Entrar</button>
+              <a href class="forgot-pass">Esqueceu sua senha?</a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

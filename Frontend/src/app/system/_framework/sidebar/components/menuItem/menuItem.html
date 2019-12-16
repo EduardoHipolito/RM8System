@@ -1,0 +1,8 @@
+<li Class="menu-list-item" [ngClass]="{SelectItem: menuItem.IsSelected}">
+
+  <a class="menu-list-link">
+    <span class="{{ menuItem.Icon }} fa-lg" title="{{ menuItem.Description }}"></span>
+    <span *ngIf="isColapsed" title="{{ menuItem.Description }}">&nbsp;{{ menuItem.Name }}</span>
+  </a>
+
+</li>

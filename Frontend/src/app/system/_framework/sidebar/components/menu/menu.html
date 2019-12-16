@@ -1,0 +1,12 @@
+<aside [style.height.px]="height - 60" class="menu">
+  <ul id="menu-list" class="menu-list" >
+    <MenuItem 
+      (click)="ClickEvent.next({value:  item  });"
+      [menuItem]="item"
+      [isColapsed]="sidebarCollapsed"
+      (toggleSubMenu)="toggleSubMenu($event)"
+      *ngFor="let item of modules">
+    </MenuItem>
+  </ul>
+</aside>
+ 

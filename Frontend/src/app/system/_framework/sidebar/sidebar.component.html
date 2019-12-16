@@ -1,0 +1,8 @@
+<PageTop (ClickEvent)="ColapseClickEvent($event)">
+</PageTop>
+<aside class=" al-sidebar" sidebarResize>
+  <menu [height]="height" [modules]="modules" [sidebarCollapsed]="_isMenuNotCollapsed" (ClickEvent)="moduleClick($event)">
+  </menu>
+  <subMenu class="" [height]="height" [aplications]="aplications" [ShowElement]="_isSubMenuVisible" (CloseEvent)="CloseClick()">
+  </subMenu>
+</aside>

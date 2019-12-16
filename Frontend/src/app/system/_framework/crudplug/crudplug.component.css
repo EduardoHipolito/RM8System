@@ -1,0 +1,10 @@
+.CPTopBar{
+    position: fixed;
+    margin-left: 5px;
+    z-index: 2;
+}
+
+.CPTopBar>button{
+        padding: 1px 5px 1px 5px;
+        margin: 2px;
+}

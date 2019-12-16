@@ -1,0 +1,68 @@
+<CrudPlug (cleanForm)="cleanForm($event)" [setings]="_crudPlugSetings">
+</CrudPlug>
+<Grid class="grid-default" [setings]="_gridSetings" (click)="GridClick($event)">
+</Grid>
+
+<form id="FormPerson" [formGroup]="form" class="form-default">
+    <div class="row">
+        <TextBox class="col-md-3" [form]="form" [controlName]="'Id'" [label]="'Id'" [readonly]="true"></TextBox>
+        <TextBox class="col-md-3" [type]="'date'" [minimumDate]='true' [onlyDatePicker]='true' [form]="form" [controlName]="'CreateDate'" [label]="'Data Inclusão'" [readonly]="true"></TextBox>
+        <TextBox class="col-md-3" [type]="'date'" [minimumDate]='true' [onlyDatePicker]='true' [form]="form" [controlName]="'ModifiedDate'" [label]="'Data Alteração'" [readonly]="true"></TextBox>
+        <DropDown class="col-md-3" #ddlStatus [form]="form" [controlName]="'Status'" [setings]="DdlStatusSetings" [label]="'Status'"></DropDown>
+    </div>
+    <div class="row">
+        <TextBox class="col-md-3" [form]="form" [controlName]="'Name'" [label]="'Nome'"></TextBox>
+        <TextBox class="col-md-3" [form]="form" [controlName]="'Email'" [label]="'Email'"></TextBox>
+        <TextBox class="col-md-3" [form]="form" [controlName]="'HomePage'" [label]="'Home Page'"></TextBox>
+    </div>
+    <div class="tabs_master">
+        <ul class="tabs_ul">
+            <li class="tabs_li">
+                <a (click)="tabChange('Close')" [ngClass]="{'active': tabActive=='Close'}">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li class="tabs_li">
+                <a (click)="tabChange('Address')" [ngClass]="{'active': tabActive=='Address'}">Endereços
+                    <i (click)="AddAddress()" *ngIf="tabActive=='Address'" class="fa fa-plus tab-add"></i>
+                </a>
+            </li>
+            <li class="tabs_li">
+                <a (click)="tabChange('Document')" [ngClass]="{'active': tabActive=='Document'}">Documentos
+                    <i (click)="AddDocument()" *ngIf="tabActive=='Document'" class="fa fa-plus tab-add"></i>
+                </a>
+            </li>
+            <li class="tabs_li">
+                <a (click)="tabChange('Phone')" [ngClass]="{'active': tabActive=='Phone'}">Telefones
+                    <i (click)="AddPhone()" *ngIf="tabActive=='Phone'" class="fa fa-plus tab-add"></i>
+                </a>
+            </li>
+        </ul>
+        <div *ngIf="tabActive=='Address'" class="tabs_body">
+            <address (Remove)="RemoveAddress($event)" [formG]="form" [addresses]="currentItem.Addresses" mode="edit"></address>
+        </div>
+        <div *ngIf="tabActive=='Document'" class="tabs_body">
+            <document (Remove)="RemoveDocument($event)" [formG]="form" [documents]="currentItem.Documents" mode="edit"></document>
+        </div>
+        <div *ngIf="tabActive=='Phone'" class="tabs_body">
+            <phone (Remove)="RemovePhone($event)" [formG]="form" [phones]="currentItem.Phones" mode="edit"></phone>
+        </div>
+    </div>
+</form>
+
+<div class="modal fade modal-fade" id="addressModal" tabindex="-1" role="dialog" data-backdrop="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="addressModalLabel">Endereço</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <address [addresses]="currentItem.Addresses" mode="read"></address>
+                <document [documents]="currentItem.Documents" mode="read"></document>
+            </div>
+        </div>
+    </div>
+</div>

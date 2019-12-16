@@ -1,0 +1,9 @@
+<div [formGroup]="form">
+    <label>{{label}}</label>
+    <select [formControlName]="controlName" class="custom-select validate form-control" [ngClass]="{'is-invalid':form.get(controlName).invalid}"
+        (change)="getObject($event.target.value)">
+        <option value="" disabled selected>Selecione</option>
+        <option *ngFor="let c of setings.DataSource" value="{{c[setings.PropertyValue]}}">
+            {{getData(c,setings.PropertyText)}}</option>
+    </select>
+</div>

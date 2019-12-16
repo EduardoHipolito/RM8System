@@ -1,0 +1,41 @@
+<div *ngIf="type  == 'text'" [formGroup]="form">
+    <label>{{label}}</label>
+    <input [formControlName]="controlName" (change)="Change()" id="{{controlName}}" type="text" class="validate form-control"
+        [ngClass]="{'is-invalid':isInvalid}" [readOnly]="readonly">
+</div>
+
+<div *ngIf="type  == 'password'" [formGroup]="form">
+    <label>{{label}}</label>
+    <input [formControlName]="controlName" (change)="Change()" id="{{controlName}}" type="password" class="validate form-control"
+        [ngClass]="{'is-invalid':isInvalid}" [readOnly]="readonly">
+</div>
+
+<div *ngIf="type  == 'number'" [formGroup]="form">
+    <label>{{label}}</label>
+    <input [formControlName]="controlName" (change)="Change()" id="{{controlName}}" type="number" class="validate form-control"
+        [ngClass]="{'is-invalid':isInvalid}" [readOnly]="readonly">
+</div>
+
+<div *ngIf="type  == 'currency'" [formGroup]="form">
+    <label>{{label}}</label>
+    <div class="row">
+        <span class="col-md-2 form-control currency-code-spam">R$</span>
+        <input appTwoDigitDecimaNumber [formControlName]="controlName" (change)="Change()" step=".01" id="{{controlName}}" type="number" class="col-md-10 validate form-control"
+            [ngClass]="{'is-invalid':isInvalid}" [readOnly]="readonly">
+    </div>
+
+    <!-- 
+    <input type="text" [ngModel]="model2" (ngModelChange)="currencyInputChanged($event)">
+
+    <input [value]="form.get(controlName).value | currency:'BRL':'symbol':'2.2'" [formControlName]="controlName" id="{{controlName}}" type="text" class="validate form-control" [ngClass]="{'is-invalid':isInvalid}" [readOnly]="readonly">
+
+    <input [ngModel]="model | currency:'BRL':'symbol':'1.2-2':'pt-BR'" (ngModelChange)="model=$event" type="text"
+        class="validate form-control" [ngClass]="{'is-invalid':isInvalid}" [readOnly]="readonly"> -->
+</div>
+
+<div *ngIf="type  == 'date'" [formGroup]="form">
+    <label>{{label}}</label>
+    <input [formControlName]="controlName" (change)="Change()" id="{{controlName}}" type="text" [value]="value" [minimumDate]='minimumDate'
+        [onlyDatePicker]='onlyDatePicker' [form]="form" [controlName]="controlName" myDatepicker
+        class="validate form-control" [readOnly]="readonly">
+</div>

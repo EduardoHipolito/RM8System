@@ -1,0 +1,69 @@
+version: '3.4'
+
+services:
+  core.web:
+    container_name: 'core.web'
+    image: core.web
+    environment: 
+      ConnectionString: User ID=postgres;Password=password;Server=postgres;Port=5432;Database=dbRM8Core;Integrated Security=true;Pooling=true;
+      DataBaseType: 2
+    build:
+      context: .
+      dockerfile: Core.Web/Dockerfile
+    ports:
+     - "5002:5002"
+    depends_on:
+     - "postgres"
+     - "gateway"
+    networks:
+      - RM8-network
+
+  stock.web:
+    container_name: 'stock.web'
+    image: stock.web
+    environment: 
+      ConnectionString: User ID=postgres;Password=password;Server=postgres;Port=5432;Database=dbRM8Core;Integrated Security=true;Pooling=true;
+      DataBaseType: 2
+    build:
+      context: .
+      dockerfile: Stock.Web/Dockerfile
+    ports:
+     - "5001:5001"
+    depends_on:
+     - "postgres"
+     - "gateway"
+    networks:
+      - RM8-network
+
+  gateway:
+    container_name: 'gateway'
+    image: gateway
+    environment: 
+      IsDocker: 1
+    build:
+      context: .
+      dockerfile: Gateway/Dockerfile
+    ports:
+     - "5000:5000"
+    networks:
+      - RM8-network
+    
+  frontend:
+    container_name: 'frontend'
+    image: frontend
+    ports:
+     - "80:80"
+    networks:
+      - RM8-network
+
+  postgres:
+    container_name: 'postgres'
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: 93298440
+    networks:
+      - RM8-network
+
+networks:
+  RM8-network:
+    driver: bridge

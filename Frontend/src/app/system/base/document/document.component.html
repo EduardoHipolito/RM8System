@@ -1,0 +1,40 @@
+<div *ngIf="mode=='read'">
+  <div class="list-form-item" *ngFor="let doc of documents; let i = index">
+    <p>
+      {{doc.Type}} {{doc.Value}}
+    </p>
+  </div>
+</div>
+
+<div *ngIf="mode=='edit'">
+  <form [formGroup]="formG">
+    <div formArrayName="Documents">
+      <div class="list-form-item" *ngFor="let doc of formG.controls.Documents.controls; let i = index">
+        <div [formGroupName]="i">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-md-2">
+                  <button class="btn btn-red btn-remove-formarray" type="button" (click)="Delete(doc)">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+                <TextBox class="col-md-10" [form]="doc" [controlName]="'Id'" [label]="'Id'" [readonly]="true"></TextBox>
+              </div>
+            </div>
+            <TextBox class="col-md-4" [type]="'date'" [minimumDate]='true' [onlyDatePicker]='true' [form]="doc"
+              [controlName]="'CreateDate'" [label]="'Data Inclusão'" [readonly]="true"></TextBox>
+            <TextBox class="col-md-4" [type]="'date'" [minimumDate]='true' [onlyDatePicker]='true' [form]="doc"
+              [controlName]="'ModifiedDate'" [label]="'Data Alteração'" [readonly]="true"></TextBox>
+          </div>
+          <div class="row">
+            <DropDown class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7" [form]="doc" [controlName]="'IdDocumentType'"
+              [setings]="DdlTypesSetings" [label]="'Tipo'"></DropDown>
+            <TextBox class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5" [form]="doc" [controlName]="'Value'"
+              [label]="'Valor'" [type]="'number'"></TextBox>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

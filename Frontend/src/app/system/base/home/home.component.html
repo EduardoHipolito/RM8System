@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-md-6 money-summary">
+        <span class="money-summary-title">Resumo do dia {{ _date | date:'dd/MM (EEEE)' }} </span>
+        <span *ngIf="_dailySales" class="sale-summary">Você tem <b>{{_dailySalesValue.Quantity}}</b> vendas com total de
+            <b>{{_dailySalesValue.Sum | currency:'BRL':true:'1.2-2'}}</b></span>
+        <span *ngIf="_dailyEntries" class="entry-summary">Você tem <b>{{_dailyEntriesValue.Quantity}}</b> entradas com total de
+            <b>{{_dailyEntriesValue.Sum | currency:'BRL':true:'1.2-2'}}</b></span>
+        <span *ngIf="_dailyProfit" class="profit-summary">Totalizando um lucro de
+            <b class="profit-summary-value">{{_dailyProfitValue.Sum | currency:'BRL':true:'1.2-2'}}</b></span>
+    </div>
+    <div class="col-md-6 money-summary">
+        <span class="money-summary-title">Resumo do mês de {{ _date | date:'MMMM' }} </span>
+        <span *ngIf="_monthSales" class="sale-summary">Você tem <b>{{_monthSalesValue.Quantity}}</b> vendas com total de
+            <b>{{_monthSalesValue.Sum | currency:'BRL':true:'1.2-2'}}</b></span>
+        <span *ngIf="_monthEntries" class="entry-summary">Você tem <b>{{_monthEntriesValue.Quantity}}</b> entradas com total de
+            <b>{{_monthEntriesValue.Sum | currency:'BRL':true:'1.2-2'}}</b></span>
+        <span *ngIf="_monthProfit" class="profit-summary">Totalizando um lucro de
+            <b class="profit-summary-value">{{_dailyProfitValue.Sum | currency:'BRL':true:'1.2-2'}}</b></span>
+    </div>
+</div>

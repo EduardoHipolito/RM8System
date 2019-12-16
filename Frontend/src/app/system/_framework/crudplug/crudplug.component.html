@@ -1,0 +1,23 @@
+<div class="row CPTopBar">
+    <button disabled="{{EraserAble}}" *ngIf="butons.Eraser" type="button" (click)="onCrudClick(5)" class="btn btn-blue">
+        <i class="fa fa-eraser" aria-hidden="true"></i>
+    </button>
+    <button disabled="{{AddAble}}" *ngIf="butons.Add" type="button" (click)="onCrudClick(0)" class="btn btn-blue">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+    </button>
+    <button disabled="{{EditAble}}" *ngIf="butons.Edit" type="button" (click)="onCrudClick(1)" class="btn btn-blue">
+        <i class="fa fa-pencil" aria-hidden="true"></i>
+    </button>
+    <button disabled="{{DeleteAble}}" *ngIf="butons.Delete" type="button" (click)="onCrudClick(2)" class="btn btn-blue">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+    </button>
+    <button disabled="{{SearchAble}}" *ngIf="butons.Search" type="button" (click)="onCrudClick(3)" class="btn btn-blue">
+        <i class="fa fa-search" aria-hidden="true"></i>
+    </button>
+    <button disabled="{{RefreshAble}}" *ngIf="butons.Refresh" type="button" (click)="onCrudClick(4)" class="btn btn-blue">
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+    </button>
+    <button disabled="{{GridFormAble}}" *ngIf="butons.GridForm" type="button" (click)="GridForm($event)" class="btn btn-blue">
+        <i [class]="GridFormClassStatus" aria-hidden="true"></i>
+    </button>
+</div>

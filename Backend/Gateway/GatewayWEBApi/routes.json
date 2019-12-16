@@ -1,0 +1,29 @@
+﻿{
+  "routes": [
+    {
+      "endpoint": "/login",
+      "destination": {
+        "uri": "http://localhost:58154/",
+        "requiresAuthentication": "false"
+      }
+    },
+    {
+      "endpoint": "/core",
+      "destination": {
+        "uri": "http://localhost:58154/api/",
+        "requiresAuthentication": "true"
+      }
+    },
+    {
+      "endpoint": "/stock",
+      "destination": {
+        "uri": "http://localhost:64196/api/",
+        "requiresAuthentication": "true"
+      }
+    }
+  ],
+  "authenticationService": {
+    "uri": "http://localhost:58154/token/ValidateAutentication",
+    "isAuthentication": "true"
+  }
+}

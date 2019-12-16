@@ -1,0 +1,63 @@
+<CrudPlug (cleanForm)="cleanForm($event)" [setings]="_crudPlugSetings" (beforeCrudClick)="beforeCrudClick()">
+</CrudPlug>
+<Grid class="grid-default" [setings]="_gridSetings">
+</Grid>
+
+<form id="FormProduct" [formGroup]="form" class="form-default">
+    <div class="row">
+        <TextBox class="col-md-3" [form]="form" [controlName]="'Id'" [label]="'Id'" [readonly]="true"></TextBox>
+        <TextBox class="col-md-3" [type]="'date'" [minimumDate]='true' [onlyDatePicker]='true' [form]="form"
+            [controlName]="'CreateDate'" [label]="'Data Inclusão'" [readonly]="true"></TextBox>
+        <TextBox class="col-md-3" [type]="'date'" [minimumDate]='true' [onlyDatePicker]='true' [form]="form"
+            [controlName]="'ModifiedDate'" [label]="'Data Alteração'" [readonly]="true"></TextBox>
+        <DropDown class="col-md-3" #ddlStatus [form]="form" [controlName]="'Status'" [setings]="DdlStatusSetings"
+            [label]="'Status'"></DropDown>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <fileUploader [form]="form" [controlName]="'Picture'" [label]="'Foto'"></fileUploader>
+        </div>
+        <div class="col-md-9" style="padding: 0px;">
+            <div class="row">
+                <TextBox class="col-md-6" [form]="form" [controlName]="'Name'" [label]="'Nome'"></TextBox>
+                <DropDown class="col-md-6" [label]="'Categoria'" [form]="form" [controlName]="'IdCategory'" [setings]="DdlCategorySetings"></DropDown>
+            </div>
+            <div class="row">
+                <TextBox class="col-md-6" [form]="form" [controlName]="'Description'" [label]="'Descrição'"></TextBox>
+                <TextBox class="col-md-3" [form]="form" [controlName]="'Color'" [label]="'Cor'"></TextBox>
+                <TextBox class="col-md-3" [form]="form" [controlName]="'Brand'" [label]="'Marca'"></TextBox>
+            </div>
+            <div class="row">
+                <TextBox class="col-md-4" [form]="form" [controlName]="'CostPrice'" [label]="'Preço de custo'" [type]="'currency'"></TextBox>
+                <TextBox class="col-md-4" [form]="form" [controlName]="'Price'" [label]="'Preço'" [type]="'currency'"></TextBox>
+                <TextBox class="col-md-4" [form]="form" [controlName]="'MinPrice'" [label]="'Preço minimo'" [type]="'currency'"></TextBox>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <TextBox class="col-md-3" [form]="form" [controlName]="'Weight'" [label]="'Peso'" [type]="'number'"></TextBox>
+        <TextBox class="col-md-3" [form]="form" [controlName]="'InternalNumber'" [label]="'Código Interno'"></TextBox>
+        <TextBox class="col-md-3" [form]="form" [controlName]="'BarCode'" [label]="'Código de barras'" [type]="'number'"></TextBox>
+        <DropDown class="col-md-3" [label]="'Tipo de unidade'" #ddlProductType [form]="form" [controlName]="'ProductType'"
+            [setings]="DdlProductTypeSetings"></DropDown>
+        <!-- <div class="col-md-3">
+            <label>Produção própria?</label>
+            <div class="row" style="margin: 5px !important;">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="IsOwnProduction" id="rbTrue" value="true">
+                    <label class="form-check-label" for="rbTrue">Sim</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="IsOwnProduction" id="rbFalse" value="false">
+                    <label class="form-check-label" for="rbFalse">Não</label>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    <div class="row">
+        <TextBox class="col-md-3" [form]="form" [controlName]="'Packing'" [label]="'Embalagem'"></TextBox>
+        <DropDown class="col-md-3" [label]="'Tipo de unidade'" #ddlUnityType [form]="form" [controlName]="'UnityType'"
+            [setings]="DdlUnityTypeSetings"></DropDown>
+        <TextBox class="col-md-6" [form]="form" [controlName]="'MoreInformation'" [label]="'Mais informações'"></TextBox>
+    </div>
+</form>

@@ -1,0 +1,46 @@
+<div [formGroup]="formItem">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-2">
+            <button class="btn btn-red btn-remove-formarray" type="button" (click)="Delete()">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+          <TextBox class="col-md-10" [form]="formItem" [controlName]="'Id'" [label]="'Id'" [readonly]="true"></TextBox>
+        </div>
+      </div>
+      <TextBox class="col-md-4" [type]="'date'" [minimumDate]='true' [onlyDatePicker]='true' [form]="formItem"
+        [controlName]="'CreateDate'" [label]="'Data Inclusão'" [readonly]="true"></TextBox>
+      <TextBox class="col-md-4" [type]="'date'" [minimumDate]='true' [onlyDatePicker]='true' [form]="formItem"
+        [controlName]="'ModifiedDate'" [label]="'Data Alteração'" [readonly]="true"></TextBox>
+    </div>
+    <div class="row">
+      <DropDown class="col-2 col-sm-2 col-md-2 col-lg-3 col-xl-2" #ddlType [form]="formItem" [controlName]="'Type'"
+        [setings]="DdlTypeSetings" [label]="'Tipo Endereco'"></DropDown>
+      <TextBox class="col-2 col-sm-2 col-md-2 col-lg-3 col-xl-2" [form]="formItem" [controlName]="'PostalCode'"
+        [label]="'Cep'"></TextBox>
+      <DropDown class="col-2 col-sm-2 col-md-2 col-lg-3 col-xl-2" (SelectChange)="DropDownCountryChange($event)"
+        #ddlCountry [form]="formItem" [controlName]="'IdCountry'" [setings]="DdlCountrySetings" [label]="'Pais'">
+      </DropDown>
+      <DropDown class="col-2 col-sm-2 col-md-2 col-lg-3 col-xl-2" (SelectChange)="DropDownStateChange($event)" #ddlState
+        [form]="formItem" [controlName]="'IdState'" [setings]="DdlStateSetings" [label]="'Estado'"></DropDown>
+      <DropDown class="col-2 col-sm-2 col-md-2 col-lg-3 col-xl-2" #ddlCity [form]="formItem" [controlName]="'IdCity'"
+        [setings]="DdlCitySetings" [label]="'Cidade'"></DropDown>
+      <TextBox class="col-2 col-sm-2 col-md-2 col-lg-3 col-xl-2" [form]="formItem" [controlName]="'Neighborhood'"
+        [label]="'Bairro'"></TextBox>
+    </div>
+
+    <div class="row">
+      <DropDown class="col-2 col-sm-2 col-md-2 col-lg-3 col-xl-2" #ddlPublicAreaType [form]="formItem"
+        [controlName]="'PublicAreaType'" [setings]="DdlPublicAreaTypeSetings" [label]="'Tipo Logradouro'"></DropDown>
+      <TextBox class="col-2 col-sm-2 col-md-2 col-lg-3 col-xl-2" [form]="formItem" [controlName]="'PublicArea'"
+        [label]="'Logradouro'"></TextBox>
+      <TextBox class="col-2 col-sm-2 col-md-2 col-lg-3 col-xl-2" [form]="formItem" [controlName]="'Number'"
+        [type]="'number'" [label]="'Numero'"></TextBox>
+      <TextBox class="col-2 col-sm-2 col-md-2 col-lg-3 col-xl-2" [form]="formItem" [controlName]="'Complement'"
+        [label]="'Complemento'"></TextBox>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+﻿{
+  "routes": [
+    {
+      "endpoint": "/login",
+      "destination": {
+        "uri": "http://danilorenato-001-site2.ctempurl.com/coreweb/",
+        "requiresAuthentication": "false"
+      }
+    },
+    {
+      "endpoint": "/core",
+      "destination": {
+        "uri": "http://danilorenato-001-site2.ctempurl.com/coreweb/api/",
+        "requiresAuthentication": "true"
+      }
+    },
+    {
+      "endpoint": "/stock",
+      "destination": {
+        "uri": "http://danilorenato-001-site2.ctempurl.com/stockweb/api/",
+        "requiresAuthentication": "true"
+      }
+    }
+  ],
+  "authenticationService": {
+    "uri": "http://danilorenato-001-site2.ctempurl.com/coreweb/token/ValidateAutentication",
+    "isAuthentication": "true"
+  }
+}

@@ -1,0 +1,11 @@
+
+.MySelect {
+        padding: .375rem 1.75rem .375rem .75rem;
+    background-color: #282828;
+    color: #ffffff !important;
+    line-height: 42px; 
+    background-size: 8px 10px;
+        border-bottom: solid rgba(50, 144, 156, 0.9) 1px !important;
+    border: none;
+}
+

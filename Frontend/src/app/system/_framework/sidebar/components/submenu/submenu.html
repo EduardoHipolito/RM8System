@@ -1,0 +1,12 @@
+<aside [style.height.px]="height - 60" *ngIf="ShowElement" class="menu2 menu-animation">
+  <button type="button" (click)="CloseEvent.next();"  class="close" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <ul id="menu-list" class="menu-list">
+    <SubMenuItem 
+      [subMenuItem]="item" 
+      (toggleSubMenu)="toggleSubMenu($event)" 
+      *ngFor="let item of aplications">
+    </SubMenuItem>
+  </ul>
+</aside>

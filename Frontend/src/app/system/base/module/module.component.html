@@ -1,0 +1,22 @@
+<CrudPlug (cleanForm)="cleanForm($event)" [setings]="_crudPlugSetings">
+</CrudPlug>
+<Grid class="grid-default" [setings]="_gridSetings">
+</Grid>
+
+<form id="FormCountry" [formGroup]="form" class="form-default">
+    <div class="row">
+        <TextBox class="col-md-3" [form]="form" [controlName]="'Id'" [label]="'Id'" [readonly]="true"></TextBox>
+        <TextBox class="col-md-3" [type]="'date'" [minimumDate]='true' [onlyDatePicker]='true' [form]="form" [controlName]="'CreateDate'" [label]="'Data Inclusão'" [readonly]="true"></TextBox>
+        <TextBox class="col-md-3" [type]="'date'" [minimumDate]='true' [onlyDatePicker]='true' [form]="form" [controlName]="'ModifiedDate'" [label]="'Data Alteração'" [readonly]="true"></TextBox>
+        <DropDown class="col-md-3" #ddlStatus [form]="form" [controlName]="'Status'" [setings]="DdlStatusSetings" [label]="'Status'"></DropDown>
+    </div>
+    <div class="row">
+        <TextBox class="col-md-3" [form]="form" [controlName]="'Name'" [label]="'Nome'"></TextBox>
+        <TextBox class="col-md-3" [form]="form" [controlName]="'Description'" [label]="'Descrição'"></TextBox>
+        <TextBox class="col-md-3" [form]="form" [controlName]="'Icon'" [label]="'Ícone'"></TextBox>
+        <TextBox class="col-md-3" [form]="form" [controlName]="'Index'" [label]="'Índice'" [type]="'number'" ></TextBox>
+    </div>
+    <div class="row">
+        <TextBox class="col-md-3" [form]="form" [controlName]="'ModuleCode'" [label]="'Código de Segurança'"></TextBox>
+    </div>
+</form>

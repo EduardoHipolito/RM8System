@@ -1,0 +1,23 @@
+<div *ngIf="mode=='read'">
+  <div class="list-form-item" *ngFor="let address of addresses; let i = index">
+
+    <p>
+      <!-- <Country [mode]="mode" [index]="i" [country]="country"></Country>
+      <State [mode]="mode" [index]="i" [country]="country" [state]="state"></State>
+      <City [index]="i" [mode]="mode" [state]="state" [city]="city"></City> -->
+    </p>
+    <p>
+      {{address.PublicAreaType}} {{address.PublicArea}} {{address.Number}} {{address.Neighborhood}} {{address.Complement}}
+    </p>
+  </div>
+</div>
+
+<div *ngIf="mode=='edit'">
+  <form [formGroup]="formG">
+    <div formArrayName="Addresses">
+      <div class="list-form-item" *ngFor="let address of formG.controls.Addresses.controls; let i = index">
+        <addressitem (Remove)="Delete($event)" [formItem]="address" [groupName]="i"></addressitem>
+      </div>
+    </div>
+  </form>
+</div>

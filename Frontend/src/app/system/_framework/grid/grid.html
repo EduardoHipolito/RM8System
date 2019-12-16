@@ -1,0 +1,75 @@
+<div class="Tabela">
+  <!--<table class="table table-striped table-bordered dataTable" role="grid" style="width: 100%;">-->
+  <table class="responstable" role="grid" style="width: 100%;">
+    <thead>
+      <tr role="row">
+        <th *ngFor="let column of setings.columns" [GridSorting]="column" (sortChanged)="onColumnOrder($event)">
+          {{column.title}}
+          <i *ngIf="column.sort && column.sort.able" class="pull-right fa"
+            [ngClass]="{'fa-chevron-down': column.sort.direction === 'desc', 'fa-chevron-up': column.sort.direction === 'asc'}"></i>
+        </th>
+      </tr>
+      <tr role="row">
+        <th *ngFor="let column of setings.columns">
+          <input class="form-control GridCollumSerch" *ngIf="column.filter" [attr.placeholder]="column.title"
+            [GridFiltering]="column.filter" (tableChanged)="OnColumnFilter(column)" />
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let row of setings.rows"
+        (click)="ItemClick($event,row)">
+        <td *ngFor="let column of setings.columns">
+          <div *ngIf="column.type == 'modal'" class=cell>
+            <button (click)="modalClick(column.modalId,row.Id,column.modalCallback )"
+              style=" padding: 1px 7px 1px 7px;font-size: 14px;" class="btn btn-blue">
+              <i class="fa fa-info"></i>
+            </button>
+          </div>
+          <div *ngIf="column.type == 'button'" class=cell>
+            <button (click)="column.buttonCallback(row)" style=" padding: 1px 7px 1px 7px;font-size: 14px;"
+              class="btn btn-{{column.buttonCollor}}">
+              <i class="{{column.buttonIcon}}"></i>
+            </button>
+          </div>
+          <div *ngIf="column.type == 'custom'" class=cell>{{column.customRender(row, setings.context)}}</div>
+          <div *ngIf="column.type == 'text'" class=cell>{{getData(row, column.name)}}</div>
+          <div *ngIf="column.type == 'image'" class=cell>
+            <img class="grid-row-image" src="{{getData(row, column.name)}}" alt="{{column.alt}}"
+              height="{{column.height}}">
+            <div class="grid-row-div-image"><img src="{{getData(row, column.name)}}" alt="{{column.alt}}" height="500">
+            </div>
+          </div>
+          <div *ngIf="column.type == 'percent'" class=cell>{{getData(row, column.name)}}%</div>
+          <div *ngIf="column.type == 'currency'" class=cell>{{getData(row, column.name) | currency:'BRL':true:'1.2-2'}}
+          </div>
+          <div *ngIf="column.type == 'date'" class=cell>{{getData(row, column.name) | date: 'dd/MM/yyyy'}}</div>
+          <div *ngIf="column.type == 'boolean'" class=cell>
+            <section>
+              <div class="checkboxFour">
+                <input *ngIf="column.boolean.true == getData(row, column.name)" type="checkbox" disabled checked
+                  style="visibility: hidden" />
+                <input *ngIf="column.boolean.false == getData(row, column.name)" type="checkbox" disabled
+                  style="visibility: hidden" />
+                <label for="checkboxFour "></label>
+              </div>
+            </section>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="row">
+  <select class="custom-select col-md-2" style="height: 36px !important;"
+    (change)="onChangeItensPerPage($event.target.value)">
+    <option value="8">8 Itens</option>
+    <option value="20">20 Itens</option>
+    <option value="50">50 Itens</option>
+    <option value="100">100 Itens</option>
+  </select>
+  <GridPagination GridPaging (pageChange)="onPaging($event)" #api previousLabel="Anterior" nextLabel="Proximo"
+    directionLinks="true" class="my-pagination col-md-10" [setings]="setings">
+  </GridPagination>
+</div>

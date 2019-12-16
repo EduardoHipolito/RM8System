@@ -1,0 +1,6 @@
+
+Empresa<select id="SelectCompany" class="custom-select">
+  <option 
+      *ngFor="let company of companies"
+       value="{{company.Id}}">{{company.ReducedName}}</option>
+</select>

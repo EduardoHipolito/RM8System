@@ -1,0 +1,31 @@
+<div *ngIf="mode=='read'">
+  <div class="list-form-item" *ngFor="let product of ProductEntries; let i = index">
+    <p>
+      {{product.FKProduct.Name}} - {{product.Quantity}} - {{product.ICMS}} - {{product.IPI}} - {{product.UnitPrice}}
+    </p>
+  </div>
+</div>
+
+<div *ngIf="mode=='edit'">
+  <form [formGroup]="formG">
+    <div formArrayName="ProductEntries">
+      <div class="list-form-item" *ngFor="let product of formG.controls.ProductEntries.controls; let i = index">
+        <div [formGroupName]="i">
+          <div class="row">
+            <TextBox class="col-md-4" [form]="product" [controlName]="'Id'" [label]="'Id'" [readonly]="true"></TextBox>
+            <TextBox class="col-md-4" [type]="'date'" [minimumDate]='true' [onlyDatePicker]='true' [form]="product" [controlName]="'CreateDate'" [label]="'Data Inclusão'" [readonly]="true"></TextBox>
+            <TextBox class="col-md-4" [type]="'date'" [minimumDate]='true' [onlyDatePicker]='true' [form]="product" [controlName]="'ModifiedDate'" [label]="'Data Alteração'" [readonly]="true"></TextBox>
+            <DropDown [label]="'Produto'" class="col-3" #ddlCity [form]="product" [controlName]="'IdProduct'" [setings]="DdlProductSetings"></DropDown>
+           </div>
+          <div class="row">
+            <TextBox class="col-md-2" (onChange)="changeTotalValue($event,product)" [form]="product" [controlName]="'ICMS'" [label]="'ICMS'" [type]="'currency'"></TextBox>
+            <TextBox class="col-md-2" (onChange)="changeTotalValue($event,product)" [form]="product" [controlName]="'IPI'" [label]="'IPI'" [type]="'currency'"></TextBox>
+            <TextBox class="col-md-2" (onChange)="changeTotalValue($event,product)" [form]="product" [controlName]="'Quantity'" [label]="'Quantidade'" [type]="'number'"></TextBox>
+            <TextBox class="col-md-2" (onChange)="changeTotalValue($event,product)" [form]="product" [controlName]="'UnitPrice'" [label]="'Valor Unitario'" [type]="'currency'"></TextBox>
+            <TextBox class="col-md-3" (onChange)="changeTotalValue($event,product)" [form]="product" [controlName]="'TotalPrice'" [label]="'Total'" [readonly]="true" [type]="'currency'"></TextBox>
+        </div>
+      </div>
+    </div>
+</div>
+</form>
+</div>

@@ -1,0 +1,50 @@
+<CrudPlug (cleanForm)="cleanForm($event)" [setings]="_crudPlugSetings" (beforeCrudClick)="beforeCrudClick()">
+</CrudPlug>
+<Grid class="grid-default" [setings]="_gridSetings">
+</Grid>
+
+<form id="FormEntry" [formGroup]="form" class="form-default">
+    <div class="row">
+        <TextBox class="col-md-3" [form]="form" [controlName]="'Id'" [label]="'Id'" [readonly]="true"></TextBox>
+        <TextBox class="col-md-3" [type]="'date'" [minimumDate]='true' [onlyDatePicker]='true' [form]="form" [controlName]="'CreateDate'" [label]="'Data Inclusão'" [readonly]="true"></TextBox>
+        <TextBox class="col-md-3" [type]="'date'" [minimumDate]='true' [onlyDatePicker]='true' [form]="form" [controlName]="'ModifiedDate'" [label]="'Data Alteração'" [readonly]="true"></TextBox>
+        <DropDown class="col-md-3" #ddlStatus [form]="form" [controlName]="'Status'" [setings]="DdlStatusSetings" [label]="'Status'"></DropDown>
+    </div>
+    <div class="row">
+        <DropDown class="col-md-3" [label]="'Fornecedor'" [form]="form" [controlName]="'IdSupplier'" [setings]="DdlSupplierSetings"></DropDown>
+        <TextBox class="col-md-3" [form]="form" (onChange)="changeTotalValue($event)" [controlName]="'Discount'" [label]="'Desconto'" [type]="'currency'"></TextBox>
+        <TextBox class="col-md-3" [form]="form" (onChange)="changeTotalValue($event)" [controlName]="'Shipping'" [label]="'Frete'" [type]="'currency'"></TextBox>
+        <TextBox class="col-md-3" [form]="form" [controlName]="'TotalPrice'" [label]="'Valor Total'" [readonly]="true" [type]="'currency'"></TextBox>
+    </div>
+    <div class="tabs_master">
+        <ul class="tabs_ul">
+            <li class="tabs_li">
+                <a (click)="tabChange('Close')" [ngClass]="{'active': tabActive=='Close'}">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li class="tabs_li">
+                <a (click)="tabChange('ProductEntry')" [ngClass]="{'active': tabActive=='ProductEntry'}">Produtos</a>
+            </li>
+        </ul>
+        <div *ngIf="tabActive=='ProductEntry'" class="tabs_body">
+            <productentry [formG]="form" [ProductEntries]="currentItem.ProductEntries" (onChange)="changeTotalValue($event)" mode="edit"></productentry>
+        </div>
+    </div>
+</form>
+
+<div class="modal fade modal-fade" id="productsModal" tabindex="-1" role="dialog" data-backdrop="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="productsModalLabel">Produtos</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <productentry [ProductEntries]="currentItem.ProductEntries" mode="read" ></productentry>
+            </div>
+        </div>
+    </div>
+</div>
