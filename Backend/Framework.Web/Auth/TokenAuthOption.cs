@@ -13,7 +13,7 @@ namespace Framework.Web.Auth
         public static RsaSecurityKey Key { get; } = new RsaSecurityKey(RSAKeyHelper.GenerateKey());
         public SigningCredentials SigningCredentials { get; } = new SigningCredentials(Key, SecurityAlgorithms.RsaSha256Signature);
 
-        public TimeSpan ExpiresSpan { get; } = TimeSpan.FromMinutes(30);
+        public TimeSpan ExpiresSpan { get; } = TimeSpan.FromHours(2);
         public string TokenType { get; } = "Bearer";
 
         public string GenerateToken(UserLoginViewModel c, DateTime expires, string Tipo)

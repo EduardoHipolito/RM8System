@@ -65,7 +65,7 @@ namespace Gateway
                 app.UseDeveloperExceptionPage();
             }
 
-            bool IsProd = true;
+            bool IsProd = false;
             string IsDocker = Environment.GetEnvironmentVariable("IsDocker");
             string jsonRoute = IsProd ? "smarterRoutes.json" : IsDocker == "1" ? "routesDocker.json " : "routes.json";
             Router router = new Router(jsonRoute, IsProd);
