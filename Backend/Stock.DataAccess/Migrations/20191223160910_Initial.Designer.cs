@@ -10,14 +10,14 @@ using Stock.DataAccess;
 namespace Stock.DataAccess.Migrations
 {
     [DbContext(typeof(StockContext))]
-    [Migration("20190813152216_RemoveIsOwnProductionFromProduct")]
-    partial class RemoveIsOwnProductionFromProduct
+    [Migration("20191223160910_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.0-rtm-30799")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -40,8 +40,7 @@ namespace Stock.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(60);
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
@@ -70,8 +69,7 @@ namespace Stock.DataAccess.Migrations
 
                     b.Property<string>("MoreInformation");
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
@@ -98,8 +96,7 @@ namespace Stock.DataAccess.Migrations
 
                     b.Property<decimal>("Shipping");
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
@@ -132,8 +129,7 @@ namespace Stock.DataAccess.Migrations
 
                     b.Property<decimal>("Rate");
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
@@ -162,8 +158,7 @@ namespace Stock.DataAccess.Migrations
 
                     b.Property<int>("NumberOfInstallments");
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.Property<decimal>("Value");
 
@@ -223,8 +218,7 @@ namespace Stock.DataAccess.Migrations
 
                     b.Property<int>("ProductType");
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.Property<int>("UnityType");
 
@@ -264,8 +258,7 @@ namespace Stock.DataAccess.Migrations
 
                     b.Property<decimal>("Quantity");
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.Property<decimal>("UnitPrice");
 
@@ -294,10 +287,9 @@ namespace Stock.DataAccess.Migrations
 
                     b.Property<int>("Quantity");
 
-                    b.Property<int?>("SaleId");
+                    b.Property<int>("SaleId");
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
@@ -326,8 +318,7 @@ namespace Stock.DataAccess.Migrations
 
                     b.Property<decimal>("Shipping");
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
@@ -356,8 +347,7 @@ namespace Stock.DataAccess.Migrations
 
                     b.Property<decimal>("Quantity");
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.Property<int?>("StockHitType");
 
@@ -390,8 +380,7 @@ namespace Stock.DataAccess.Migrations
 
                     b.Property<string>("MoreInformation");
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.Property<int>("SupplierType");
 
@@ -448,9 +437,10 @@ namespace Stock.DataAccess.Migrations
                         .HasForeignKey("IdProduct")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Stock.Domain.Sale")
+                    b.HasOne("Stock.Domain.Sale", "FKSale")
                         .WithMany("Products")
-                        .HasForeignKey("SaleId");
+                        .HasForeignKey("SaleId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Stock.Domain.Sale", b =>

@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Core.DataAccess.Migrations
 {
     [DbContext(typeof(CoreContext))]
-    [Migration("20181120200340_UserAplicationCompany_OperationType")]
-    partial class UserAplicationCompany_OperationType
+    [Migration("20191223155821_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.0-rtm-30799")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -58,8 +58,7 @@ namespace Core.DataAccess.Migrations
 
                     b.Property<int>("PublicAreaType");
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.Property<int>("Type");
 
@@ -81,6 +80,9 @@ namespace Core.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AplicationCode")
+                        .IsRequired();
 
                     b.Property<DateTime>("CreateDate");
 
@@ -104,8 +106,9 @@ namespace Core.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(60);
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<bool>("ShowMenu");
+
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
@@ -132,7 +135,8 @@ namespace Core.DataAccess.Migrations
 
                     b.Property<int>("IdCountry");
 
-                    b.Property<int?>("IdState");
+                    b.Property<int?>("IdState")
+                        .IsRequired();
 
                     b.Property<DateTime?>("ModifiedDate");
 
@@ -140,8 +144,7 @@ namespace Core.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(60);
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
@@ -170,8 +173,7 @@ namespace Core.DataAccess.Migrations
 
                     b.Property<DateTime?>("ModifiedDate");
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
@@ -204,8 +206,7 @@ namespace Core.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(40);
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.Property<int>("Type");
 
@@ -240,8 +241,7 @@ namespace Core.DataAccess.Migrations
 
                     b.Property<int>("PhoneCode");
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
@@ -268,8 +268,7 @@ namespace Core.DataAccess.Migrations
 
                     b.Property<DateTime?>("ModifiedDate");
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -308,8 +307,7 @@ namespace Core.DataAccess.Migrations
                     b.Property<byte>("PersonType")
                         .HasMaxLength(30);
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
@@ -339,12 +337,14 @@ namespace Core.DataAccess.Migrations
 
                     b.Property<DateTime?>("ModifiedDate");
 
+                    b.Property<string>("ModuleCode")
+                        .IsRequired();
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(60);
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
@@ -378,8 +378,7 @@ namespace Core.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(60);
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.Property<int>("Type");
 
@@ -410,8 +409,7 @@ namespace Core.DataAccess.Migrations
 
                     b.Property<int>("Number");
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.Property<int>("Type")
                         .HasMaxLength(2);
@@ -447,8 +445,7 @@ namespace Core.DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(60);
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
@@ -485,8 +482,7 @@ namespace Core.DataAccess.Migrations
                     b.Property<int>("ProfileType")
                         .HasMaxLength(2);
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.Property<Guid>("TokenAlteracaoDeSenha");
 
@@ -507,25 +503,23 @@ namespace Core.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AccessLevel")
-                        .HasMaxLength(2);
-
-                    b.Property<bool>("AllowEdit");
+                    b.Property<int>("AccessLevel");
 
                     b.Property<DateTime>("CreateDate");
 
                     b.Property<int>("IdAplication");
 
-                    b.Property<int>("IdCompany");
+                    b.Property<int?>("IdCompany");
 
                     b.Property<int?>("IdCompanyPermition");
 
-                    b.Property<int>("IdUser");
+                    b.Property<int?>("IdUser");
+
+                    b.Property<bool>("IsGlobal");
 
                     b.Property<DateTime?>("ModifiedDate");
 
-                    b.Property<int>("Status")
-                        .HasMaxLength(2);
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
@@ -535,7 +529,8 @@ namespace Core.DataAccess.Migrations
 
                     b.HasIndex("IdAplication", "IdCompany", "IdUser")
                         .IsUnique()
-                        .HasName("IX_UniquePermition");
+                        .HasName("IX_UniquePermition")
+                        .HasFilter("[IdCompany] IS NOT NULL AND [IdUser] IS NOT NULL");
 
                     b.ToTable("UserAplicationCompany");
                 });
@@ -564,7 +559,6 @@ namespace Core.DataAccess.Migrations
             modelBuilder.Entity("Core.Domain.PhysicalPerson", b =>
                 {
                     b.HasBaseType("Core.Domain.Person");
-
 
                     b.ToTable("PhysicalPerson");
 
@@ -609,7 +603,8 @@ namespace Core.DataAccess.Migrations
 
                     b.HasOne("Core.Domain.State", "FKState")
                         .WithMany("Cities")
-                        .HasForeignKey("IdState");
+                        .HasForeignKey("IdState")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Core.Domain.Company", b =>
@@ -683,13 +678,11 @@ namespace Core.DataAccess.Migrations
 
                     b.HasOne("Core.Domain.Company", "FKCompany")
                         .WithMany("Permitions")
-                        .HasForeignKey("IdCompany")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("IdCompany");
 
                     b.HasOne("Core.Domain.User", "FKUser")
                         .WithMany("Permitions")
-                        .HasForeignKey("IdUser")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("IdUser");
                 });
 
             modelBuilder.Entity("Core.Domain.LegalPerson", b =>
