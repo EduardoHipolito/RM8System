@@ -1,0 +1,73 @@
+StartReadFrame linha: 0
+
+ -------------------------------------------------------------
+ 
+
+Data: 2020-01-09 08:52:03 ------------------------------------------------------------- 
+Erro: -2146233079
+Mensagem: Sequence contains no matching element
+Clase:  metodo: First linha: 0
+
+ -------------------------------------------------------------
+ 
+
+Data: 2020-01-09 08:42:02 ------------------------------------------------------------- 
+Erro: -2146233079
+Mensagem: Sequence contains no matching element
+Clase:  metodo: First linha: 0
+
+ -------------------------------------------------------------
+ 
+
+Data: 2020-01-09 08:42:45 ------------------------------------------------------------- 
+Erro: -2146232800
+Mensagem: The SSL connection could not be established, see inner exception.
+Clase:  metodo: MoveNext linha: 0
+-- Mensagem da excecao interna: The handshake failed due to an unexpected packet format.
+-- Clase:  metodo: StartReadFrame linha: 0
+
+ -------------------------------------------------------------
+ 
+
+Data: 2020-01-09 08:46:43 ------------------------------------------------------------- 
+Erro: -2146232800
+Mensagem: The SSL connection could not be established, see inner exception.
+Clase:  metodo: MoveNext linha: 0
+-- Mensagem da excecao interna: The handshake failed due to an unexpected packet format.
+-- Clase:  metodo: StartReadFrame linha: 0
+
+ -------------------------------------------------------------
+ 
+
+Data: 2020-01-09 08:52:03 ------------------------------------------------------------- 
+Erro: -2146233079
+Mensagem: Sequence contains no matching element
+Clase:  metodo: First linha: 0
+
+ -------------------------------------------------------------
+ 
+
+Data: 2020-01-09 08:52:15 ------------------------------------------------------------- 
+Erro: -2146233079
+Mensagem: Sequence contains no matching element
+Clase:  metodo: First linha: 0
+
+ -------------------------------------------------------------
+ 
+
+Data: 2020-01-09 09:00:04 ------------------------------------------------------------- 
+Erro: -2146233079
+Mensagem: Sequence contains no matching element
+Clase:  metodo: First linha: 0
+
+ -------------------------------------------------------------
+ 
+
+Data: 2020-01-09 09:00:55 ------------------------------------------------------------- 
+Erro: -2146232060
+Mensagem: Invalid object name 'Entry'.
+Clase:  metodo: OnError linha: 0
+
+ -------------------------------------------------------------
+ 
+

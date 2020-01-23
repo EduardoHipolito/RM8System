@@ -15,7 +15,7 @@ namespace Framework.Helpers
 
         private Log()
         {
-            _ftp = new FTP("ftp://FTP.SITE4NOW.NET/rm8/log/", "eduardohipolito-001", "2007Dudu");
+            _ftp = new FTP("ftp://198.38.83.236/rm8log", "gestaorm8.com_deploy", "!s$@JFjm$3f!E2#n");
             //CreatePaths();
         }
 
@@ -69,11 +69,11 @@ namespace Framework.Helpers
         public string Caminho { get; set; }
         public void Function(StringBuilder texto)
         {
-            texto.Insert(0, removerAcentos("Data: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
+            texto.Insert(0, removerAcentos("Data: " + DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss")));
             texto.AppendLine(" -------------------------------------------------------------");
             texto.AppendLine(" ");
 
-            this.Write(texto);
+            this.WriteOnFTP(texto);
         }
 
         private void WriteOnFTP(StringBuilder texto)
@@ -109,59 +109,42 @@ namespace Framework.Helpers
             }
         }
 
+
+        private StringBuilder BuildStringError(StringBuilder msg, Exception ex, string spaces = "-- ")
+        {
+            msg.AppendLine(spaces + removerAcentos("Mensagem da exceção interna: " + ex.Message));
+            var st = new StackTrace(ex, true);
+            if (st != null && st.GetFrame(0) != null)
+            {
+                msg.AppendLine(spaces + removerAcentos(string.Format("Clase: {0} metodo: {1} linha: {2}", st.GetFrame(0).GetFileName(), st.GetFrame(0).GetMethod().Name, st.GetFrame(0).GetFileLineNumber())));
+            }
+            if (ex.InnerException != null)
+            {
+                msg = BuildStringError(msg, ex.InnerException, spaces + "-- ");
+            }
+            return msg;
+        }
+
         public void ErrorLog(Exception ex)
         {
             if (ex.HResult != -2147467259)
             {
-                var st = new StackTrace(ex, true);
                 StringBuilder msg = new StringBuilder();
                 msg.AppendLine(removerAcentos(" ------------------------------------------------------------- "));
                 msg.AppendLine(removerAcentos("Erro: " + ex.HResult));
                 msg.AppendLine(removerAcentos("Mensagem: " + ex.Message));
-                msg.AppendLine(removerAcentos(string.Format("Clase: {0} metodo: {1} linha: {2}", st.GetFrame(0).GetFileName(), st.GetFrame(0).GetMethod().Name, st.GetFrame(0).GetFileLineNumber())));
+
+                var st = new StackTrace(ex, true);
+                if (st != null && st.GetFrame(0) != null)
+                {
+                    msg.AppendLine(removerAcentos(string.Format("Clase: {0} metodo: {1} linha: {2}", st.GetFrame(0).GetFileName(), st.GetFrame(0).GetMethod().Name, st.GetFrame(0).GetFileLineNumber())));
+                }
+
                 if (ex.InnerException != null)
                 {
-                    msg.AppendLine(removerAcentos("-- Mensagem da exceção interna: " + ex.InnerException.Message));
-                    st = new StackTrace(ex.InnerException, true);
-                    msg.AppendLine(removerAcentos(string.Format("-- Clase: {0} metodo: {1} linha: {2}", st.GetFrame(0).GetFileName(), st.GetFrame(0).GetMethod().Name, st.GetFrame(0).GetFileLineNumber())));
-
-                    if (ex.InnerException.InnerException != null)
-                    {
-                        msg.AppendLine(removerAcentos("-- -- Mensagem da exceção interna: " + ex.InnerException.InnerException.Message));
-                        st = new StackTrace(ex.InnerException.InnerException, true);
-                        msg.AppendLine(removerAcentos(string.Format("-- -- Clase: {0} metodo: {1} linha: {2}", st.GetFrame(0).GetFileName(), st.GetFrame(0).GetMethod().Name, st.GetFrame(0).GetFileLineNumber())));
-
-                        if (ex.InnerException.InnerException.InnerException != null)
-                        {
-                            msg.AppendLine(removerAcentos("-- -- -- Mensagem da exceção interna: " + ex.InnerException.InnerException.InnerException.Message));
-                            st = new StackTrace(ex.InnerException.InnerException.InnerException, true);
-                            msg.AppendLine(removerAcentos(string.Format("-- -- -- Clase: {0} metodo: {1} linha: {2}", st.GetFrame(0).GetFileName(), st.GetFrame(0).GetMethod().Name, st.GetFrame(0).GetFileLineNumber())));
-
-                            if (ex.InnerException.InnerException.InnerException.InnerException != null)
-                            {
-                                msg.AppendLine(removerAcentos("-- -- -- -- Mensagem da exceção interna: " + ex.InnerException.InnerException.InnerException.InnerException.Message));
-                                st = new StackTrace(ex.InnerException.InnerException.InnerException.InnerException, true);
-                                msg.AppendLine(removerAcentos(string.Format("-- -- -- -- Clase: {0} metodo: {1} linha: {2}", st.GetFrame(0).GetFileName(), st.GetFrame(0).GetMethod().Name, st.GetFrame(0).GetFileLineNumber())));
-
-                                if (ex.InnerException.InnerException.InnerException.InnerException.InnerException != null)
-                                {
-                                    msg.AppendLine(removerAcentos("-- -- -- -- -- Mensagem da exceção interna: " + ex.InnerException.InnerException.InnerException.InnerException.InnerException.Message));
-                                    st = new StackTrace(ex.InnerException.InnerException.InnerException.InnerException.InnerException, true);
-                                    msg.AppendLine(removerAcentos(string.Format("-- -- -- -- -- Clase: {0} metodo: {1} linha: {2}", st.GetFrame(0).GetFileName(), st.GetFrame(0).GetMethod().Name, st.GetFrame(0).GetFileLineNumber())));
-
-                                    if (ex.InnerException.InnerException.InnerException.InnerException.InnerException.InnerException != null)
-                                    {
-                                        msg.AppendLine(removerAcentos("-- -- -- -- -- -- Mensagem da exceção interna: " + ex.InnerException.InnerException.InnerException.InnerException.InnerException.InnerException.Message));
-                                        st = new StackTrace(ex.InnerException.InnerException.InnerException.InnerException.InnerException.InnerException, true);
-                                        msg.AppendLine(removerAcentos(string.Format("-- -- -- -- -- -- Clase: {0} metodo: {1} linha: {2}", st.GetFrame(0).GetFileName(), st.GetFrame(0).GetMethod().Name, st.GetFrame(0).GetFileLineNumber())));
-
-                                    }
-                                }
-                            }
-
-                        }
-                    }
+                    msg = BuildStringError(msg, ex.InnerException);
                 }
+
                 msg.AppendLine("");
                 Function(msg);
             }

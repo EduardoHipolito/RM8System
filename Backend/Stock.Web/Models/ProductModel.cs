@@ -33,7 +33,7 @@ namespace Stock.Web.Models
 
         public string Packing { get; set; }
 
-        public decimal Weight { get; set; }
+        public decimal? Weight { get; set; }
 
         public string MoreInformation { get; set; }
 

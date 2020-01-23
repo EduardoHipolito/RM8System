@@ -407,5 +407,11 @@ namespace Framework.Business
 
             return (T)newRequest;
         }
+
+        //public void Dispose()
+        //{
+        //    this._dataAccess.Dispose();
+        //    this._dataAccess = null;
+        //}
     }
 }

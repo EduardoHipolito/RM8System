@@ -5,6 +5,7 @@ import { NotificationsService } from './../notification/notifications.service';
 import { CrudPlugSetings } from './CrudPlugSetings';
 import { ValidationErrors } from '@angular/forms';
 import { CrudPlugbuttonsType } from './CrudPlugbuttonsType';
+import { ResponseResult } from '../models/ResponseResult';
 
 @Component({
   selector: 'CrudPlug',
@@ -101,7 +102,7 @@ export class CrudplugComponent implements AfterViewInit {
             this._service.Add(this.setings.formG.value)
               .then(
                 response => {
-                  let res = response.json();
+                  let res = <ResponseResult>response;
                   this.setings.formEntity = res.Data;
                   this.ChangeFormState("Exist");
                   this.notificationsService.success('Inserido');
@@ -149,7 +150,7 @@ export class CrudplugComponent implements AfterViewInit {
           this._service.FindAll(this.setings.gridSettings.RequestSettings, this.setings.formG.value)
             .then(
               response => {
-                let res = response.json();
+                let res = <ResponseResult>response;
                 this.setings.formEntity = res.Data[0];
                 this.setings.gridSettings.data = res.Data.DataList;
                 this.setings.gridSettings.rows = res.Data.DataList;
@@ -168,7 +169,7 @@ export class CrudplugComponent implements AfterViewInit {
           this._service.GetAllGrid(this.setings.gridSettings.RequestSettings)
             .then(
               response => {
-                let res = response.json();
+                let res = <ResponseResult>response;
                 this.setings.gridSettings.data = res.Data.DataList;
                 this.setings.gridSettings.rows = res.Data.DataList;
                 this.setings.gridSettings.TotalItems = res.Data.TotalRecords;

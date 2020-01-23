@@ -31,7 +31,7 @@ namespace Framework.Helpers
                 upload(remoteFile, localFileStream);
             }
 
-            ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + remoteFile);
+            ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + "/" + remoteFile);
             /* Log in to the FTP Server with the User Name and Password Provided */
             ftpRequest.Credentials = new NetworkCredential(user, pass);
             /* When in doubt, use these options */

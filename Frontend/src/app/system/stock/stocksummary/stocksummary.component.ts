@@ -19,6 +19,7 @@ import { StockHistory } from '../../_domains/StockHistory';
 import { StockSummaryService } from './stocksummary.service';
 import { baseComponent } from '../../_framework/helppers/base.component';
 import { StockType } from '../../_domains/enums/StockType';
+import { ResponseResult } from '../../_framework/models/ResponseResult';
 
 @Component({
   selector: 'stocksummary',
@@ -121,7 +122,7 @@ export class StockSummaryComponent extends baseCrudComponent {
     this._stockSummaryService.GetSummary()
       .then(
         response => {
-          let res = response.json();
+          var res = <ResponseResult>response;
           this._getAllCallBack(res.Data, context);
           this.notificationsService.success('Total de itens:' + res.Data.length);
         },
@@ -238,7 +239,7 @@ export class StockSummaryComponent extends baseCrudComponent {
     context._stockSummaryService.GetHistoryByIdProduct(Id)
       .then(
         response => {
-          let res = response.json();
+          var res = <ResponseResult>response;
           context._getAllHistoryCallBack(res.Data, context);
           FinishAndOpenModalCallback(modalId);
         },

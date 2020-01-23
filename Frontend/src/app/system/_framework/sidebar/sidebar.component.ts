@@ -4,6 +4,7 @@ import { SidebarService } from './sidebar.service';
 import { Module } from '../../_domains/Module';
 import { Aplication } from '../../_domains/Aplication';
 import { AuthCookie } from '../auth/auth.cookie';
+import { ResponseResult } from '../models/ResponseResult';
 
 @Component({
   selector: 'sidebar',
@@ -38,7 +39,7 @@ export class Sidebar {
   public ngOnInit(): void {
     this._service.updateMenus()
       .then(response => {
-        var res = response.json();
+        var res = <ResponseResult>response;
         this.modules = res.Data;
         this.aplications = this.modules[0].Aplications;
         this._service.isMenuNotCollapsed = true;
@@ -46,7 +47,7 @@ export class Sidebar {
 
       this._service.updateRoles()
         .then(response => {
-          var res = response.json();
+          var res = <ResponseResult>response;
           this.authCookie.SetIntoLocalStorage("aplication_codes", res.Data);
         });
   }

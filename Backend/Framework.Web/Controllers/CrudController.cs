@@ -58,6 +58,7 @@ namespace Framework.Web.Controllers
             }
             catch (BusinessException ex)
             {
+                Log.Instance.ErrorLog(ex);
                 return Json(new ResponseResult
                 {
                     State = ResponseState.Failed,
@@ -84,6 +85,7 @@ namespace Framework.Web.Controllers
             }
             catch (BusinessException ex)
             {
+                Log.Instance.ErrorLog(ex);
                 return Json(new ResponseResult
                 {
                     State = ResponseState.Failed,
@@ -107,6 +109,7 @@ namespace Framework.Web.Controllers
             }
             catch (BusinessException ex)
             {
+                Log.Instance.ErrorLog(ex);
                 return Json(new ResponseResult
                 {
                     State = ResponseState.Failed,
@@ -145,6 +148,7 @@ namespace Framework.Web.Controllers
             }
             catch (BusinessException ex)
             {
+                Log.Instance.ErrorLog(ex);
                 return Json(new ResponseResult
                 {
                     State = ResponseState.Failed,
@@ -182,6 +186,7 @@ namespace Framework.Web.Controllers
             }
             catch (BusinessException ex)
             {
+                Log.Instance.ErrorLog(ex);
                 return Json(new ResponseResult
                 {
                     State = ResponseState.Failed,
@@ -219,6 +224,7 @@ namespace Framework.Web.Controllers
             }
             catch (BusinessException ex)
             {
+                Log.Instance.ErrorLog(ex);
                 return Json(new ResponseResult
                 {
                     State = ResponseState.Failed,
@@ -256,6 +262,7 @@ namespace Framework.Web.Controllers
             }
             catch (BusinessException ex)
             {
+                Log.Instance.ErrorLog(ex);
                 return Json(new ResponseResult
                 {
                     State = ResponseState.Failed,
@@ -263,5 +270,11 @@ namespace Framework.Web.Controllers
                 });
             }
         }
+
+        //protected override void Dispose(bool disposing)
+        //{
+        //    this._business.Dispose();
+        //    base.Dispose(disposing);
+        //}
     }
 }

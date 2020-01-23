@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Text;
 using Framework.Business.Response;
 using Framework.Helpers;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -17,6 +19,22 @@ namespace Gateway
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            var corsBuilder = new CorsPolicyBuilder();
+            corsBuilder.AllowAnyHeader();
+            corsBuilder.AllowAnyMethod();
+            corsBuilder.AllowAnyOrigin();
+            corsBuilder.DisallowCredentials();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("SiteCorsPolicy", corsBuilder.Build());
+            });
+
+            services.AddAuthentication().AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.Audience = "api1";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,13 +83,21 @@ namespace Gateway
                 app.UseDeveloperExceptionPage();
             }
 
-            bool IsProd = false;
+            bool IsProd = true;
             string IsDocker = Environment.GetEnvironmentVariable("IsDocker");
-            string jsonRoute = IsProd ? "smarterRoutes.json" : IsDocker == "1" ? "routesDocker.json " : "routes.json";
+            string jsonRoute = IsProd ? "mochaRoutes.json" : IsDocker == "1" ? "routesDocker.json " : "routes.json";
             Router router = new Router(jsonRoute, IsProd);
             app.Run(async (context) =>
             {
-                await router.RouteRequest(context);
+                try
+                {
+                    await router.RouteRequest(context);
+                }
+                catch (Exception ex)
+                {
+                    Log.Instance.ErrorLog(ex);
+                    throw ex;
+                }
             });
         }
     }

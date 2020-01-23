@@ -47,6 +47,28 @@ namespace Framework.Business.Factory
 
             return instance as T;
         }
+        //private static ConcurrentDictionary<string, object> instanceList = new ConcurrentDictionary<string, object>();
+        //public static T GetInstance<T>() where T : class
+        //{
+        //    var contractType = typeof(T);
+        //    var attribute = contractType.GetCustomAttribute<FactoryReferenceAttribute>();
 
+        //    var attributeTypeName = attribute.TypeName;
+        //    object instance;
+
+        //    if (instanceList.TryGetValue(attributeTypeName, out instance))
+        //    {
+        //        return (T)instance;
+        //    }
+
+        //    instance = Activator.CreateInstance(Type.GetType(attributeTypeName));
+
+        //    if (!instanceList.ContainsKey(attributeTypeName))
+        //    {
+        //        instanceList.TryAdd(attributeTypeName, instance);
+        //    }
+
+        //    return (T)instance;
+        //}
     }
 }

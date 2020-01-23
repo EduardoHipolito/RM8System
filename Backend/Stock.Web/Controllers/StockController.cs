@@ -6,6 +6,7 @@ using AutoMapper;
 using Framework.Business.Exceptions;
 using Framework.Business.Request;
 using Framework.Business.Response;
+using Framework.Helpers;
 using Framework.Web;
 using Framework.Web.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -36,6 +37,7 @@ namespace Stock.Web.Controllers
             }
             catch (BusinessException ex)
             {
+                Log.Instance.ErrorLog(ex);
                 return Json(new ResponseResult
                 {
                     State = ResponseState.Failed,
@@ -61,6 +63,7 @@ namespace Stock.Web.Controllers
             }
             catch (BusinessException ex)
             {
+                Log.Instance.ErrorLog(ex);
                 return Json(new ResponseResult
                 {
                     State = ResponseState.Failed,

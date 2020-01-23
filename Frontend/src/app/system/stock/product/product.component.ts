@@ -155,6 +155,9 @@ export class ProductComponent extends baseCrudComponent {
     this.DdlCategorySetings.Method = MethodEnum.Get;
     this.DdlCategorySetings.ServiceMethodURL = urlStock + "/category/GetAll";
 
+    let productTypeList = Methods.EnumToArray(ProductType);
+    this.DdlProductTypeSetings.DataSource = productTypeList;
+
     let typeList = Methods.EnumToArray(ProductUnityType);
     this.DdlUnityTypeSetings.DataSource = typeList;
 

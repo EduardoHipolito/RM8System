@@ -17,11 +17,11 @@ namespace Migrations.Seeds
             //context.Database.Migrate();
 
 
-            try
+            using (var dbContextTransaction = context.Database.BeginTransaction())
             {
-
-                using (var dbContextTransaction = context.Database.BeginTransaction())
+                try
                 {
+
                     Country _brazil = new Country()
                     {
                         Code = "BR",
@@ -1103,10 +1103,11 @@ namespace Migrations.Seeds
                     dbContextTransaction.Commit();
                 }
 
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.ErrorLog(ex);
+                catch (Exception ex)
+                {
+                    dbContextTransaction.Rollback();
+                    Log.Instance.ErrorLog(ex);
+                }
             }
         }
     }

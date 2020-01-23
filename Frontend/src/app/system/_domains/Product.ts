@@ -3,6 +3,7 @@ import { _EntityBase } from './_EntityBase';
 import { Category } from './Category';
 import { Supplier } from './Supplier';
 import { ProductUnityType } from './enums/ProductUnityType';
+import { ProductType } from './enums/ProductType';
 
 @Injectable()
 export class Product extends _EntityBase
@@ -23,5 +24,5 @@ export class Product extends _EntityBase
     public CostPrice: number;
     public Price: number;
     public MinPrice: number;
-    public ProductType: boolean;
+    public ProductType: ProductType;
 }

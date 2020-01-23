@@ -1,14 +1,14 @@
-import { Http } from "@angular/http";
 import { AuthCookie } from "../auth/auth.cookie";
 import { Router } from "@angular/router";
 import { urlBase } from "../helppers/configs";
 import { Injectable } from "@angular/core";
 import { RequestBaseParameter } from "../models/RequestBase";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable()
 export class DropDownService {
 
-    constructor(private http: Http) {
+    constructor(private http: HttpClient) {
 
     }
 

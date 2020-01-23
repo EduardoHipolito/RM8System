@@ -12,6 +12,13 @@ namespace Framework.DataAccess
     public class DataAccessBase
     {
         protected DbContext _dbContext;
+
+        //public void Dispose()
+        //{
+        //    this._dbContext.Dispose();
+        //    this._dbContext = null;
+        //}
+
         public void SetDbContext(DbContext dbContext)
         {
             this._dbContext = dbContext;

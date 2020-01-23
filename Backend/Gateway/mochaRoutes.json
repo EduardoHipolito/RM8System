@@ -3,27 +3,27 @@
     {
       "endpoint": "/login",
       "destination": {
-        "uri": "http://localhost:58154/",
+        "uri": "http://core.gestaorm8.com.preview.my-hosting-panel.com/",
         "requiresAuthentication": "false"
       }
     },
     {
       "endpoint": "/core",
       "destination": {
-        "uri": "http://localhost:58154/api/",
+        "uri": "http://core.gestaorm8.com.preview.my-hosting-panel.com/api/",
         "requiresAuthentication": "true"
       }
     },
     {
       "endpoint": "/stock",
       "destination": {
-        "uri": "http://localhost:64196/api/",
+        "uri": "http://stock.gestaorm8.com.preview.my-hosting-panel.com/api/",
         "requiresAuthentication": "true"
       }
     }
   ],
   "authenticationService": {
-    "uri": "http://localhost:58154/token/ValidateAutentication",
+    "uri": "http://core.gestaorm8.com.preview.my-hosting-panel.com/token/ValidateAutentication",
     "isAuthentication": "true"
   }
 }

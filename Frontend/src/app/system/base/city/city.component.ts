@@ -49,8 +49,7 @@ export class CityComponent extends baseCrudComponent {
       Status: [EntityType.Ativo, Validators.required],
       Name: ['', Validators.required],
       IdCountry: ['', Validators.required],
-      IdState: ['', Validators.required],
-      PhoneCode: ['', Validators.required],
+      IdState: ['', Validators.required]
     });
   }
 

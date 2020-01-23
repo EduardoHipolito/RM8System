@@ -32,11 +32,11 @@ import { DatePicker } from "./datepicker/DatePicker";
 import { TwoDigitDecimaNumberDirective } from "./directives/TwoDigitDecimaNumberDirective ";
 import { DropDownService } from "./dropdown/dropdown.service";
 import { DropDownComponent } from "./dropdown/dropdown.component";
-import { XHRBackend } from "@angular/http";
-import { ExtendedXHRBackend } from "./http/extendedXHRBackend";
 import { fileUploader } from './fileUploader/fileUploader';
 import { TextBoxComponent } from './textbox/textbox.component';
 import { GridPaginationComponent } from "./grid/gridpagination/gridpagination.component";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { ExtendedHttpInterceptor } from "./http/extendedHttpInterceptor";
 
 
 @NgModule({
@@ -92,7 +92,8 @@ import { GridPaginationComponent } from "./grid/gridpagination/gridpagination.co
     TwoDigitDecimaNumberDirective,
     DropDownComponent
   ], providers: [
-    { provide: XHRBackend, useClass: ExtendedXHRBackend },
+    { provide: HTTP_INTERCEPTORS, useClass: ExtendedHttpInterceptor, multi: true },
+    // { provide: XHRBackend, useClass: ExtendedXHRBackend },
     SelectCompanyService,
     SidebarService,
     DropDownService

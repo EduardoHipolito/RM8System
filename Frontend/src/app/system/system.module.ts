@@ -9,8 +9,8 @@ import { SystemComponent } from './system.component';
 import { StockComponent } from './stock/stock.component';
 import { BaseComponent } from './base/base.component';
 import { FrameworkModule } from './_framework/framework.module';
-import { HttpModule, XHRBackend } from '@angular/http';
-import { ExtendedXHRBackend } from './_framework/http/extendedXHRBackend';
+import { ExtendedHttpInterceptor } from './_framework/http/extendedHttpInterceptor';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -18,7 +18,7 @@ import { ExtendedXHRBackend } from './_framework/http/extendedXHRBackend';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
+    HttpClientModule,
     FrameworkModule,
     SystemRouting
   ],
@@ -27,7 +27,8 @@ import { ExtendedXHRBackend } from './_framework/http/extendedXHRBackend';
     StockComponent
   ],
   providers: [
-    { provide: XHRBackend, useClass: ExtendedXHRBackend },
+    { provide: HTTP_INTERCEPTORS, useClass: ExtendedHttpInterceptor, multi: true },
+    // { provide: XHRBackend, useClass: ExtendedXHRBackend },
   ],
   exports: [
   ]

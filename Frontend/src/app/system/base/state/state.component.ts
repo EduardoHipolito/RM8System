@@ -44,8 +44,7 @@ export class StateComponent extends baseCrudComponent  {
       Status: [EntityType.Ativo, Validators.required],
       IdCountry: [null, Validators.required],
       Name: ['', Validators.required],
-      Code: ['', Validators.required],
-      PhoneCode: ['', Validators.required],
+      Code: ['', Validators.required]
     });
   }
 

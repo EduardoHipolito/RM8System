@@ -61,44 +61,44 @@ namespace Framework.Web.Filtes
             base.OnActionExecuting(context);
         }
 
-        public override void OnActionExecuted(ActionExecutedContext actionExecutedContext)
-        {
-            var controllerActionDescriptor = actionExecutedContext.ActionDescriptor as ControllerActionDescriptor;
-            if (controllerActionDescriptor != null)
-            {
-                var isDefined = controllerActionDescriptor.MethodInfo.GetCustomAttributes(inherit: true)
-                    .Any(a => a.GetType().Equals(typeof(AllowAnonymousAttribute)));
-                if (!isDefined)
-                {
-                    var requestHeaders = webAPIRequestHelper.GetHeadersFromRequest(actionExecutedContext);
+        //public override void OnActionExecuted(ActionExecutedContext actionExecutedContext)
+        //{
+        //    var controllerActionDescriptor = actionExecutedContext.ActionDescriptor as ControllerActionDescriptor;
+        //    if (controllerActionDescriptor != null)
+        //    {
+        //        var isDefined = controllerActionDescriptor.MethodInfo.GetCustomAttributes(inherit: true)
+        //            .Any(a => a.GetType().Equals(typeof(AllowAnonymousAttribute)));
+        //        if (!isDefined)
+        //        {
+        //            var requestHeaders = webAPIRequestHelper.GetHeadersFromRequest(actionExecutedContext);
 
-                    if (requestHeaders != null && requestHeaders.Count > 0)
-                    {
-                        var refresh_token = requestHeaders.Where(x => x.Key == "refresh_token").Select(x => x.Value).FirstOrDefault();
+        //            if (requestHeaders != null && requestHeaders.Count > 0)
+        //            {
+        //                var refresh_token = requestHeaders.Where(x => x.Key == "refresh_token").Select(x => x.Value).FirstOrDefault();
 
-                        if (refresh_token != null && refresh_token.Count() > 0)
-                        {
-                            var requestAt = DateTime.Now;
-                            var identity = actionExecutedContext.HttpContext.User.Identity as ClaimsIdentity;
-                            identity.FindFirst("");
-                            var user = new UserLoginViewModel()
-                            {
-                                Id = Convert.ToInt32(identity.FindFirst("UserId").Value),
-                                UserName = identity.Name
-                            };
-                            var _tokenAuthOption = new TokenAuthOption();
-                            var expiresIn = requestAt + _tokenAuthOption.ExpiresSpan;
-                            actionExecutedContext.HttpContext.Response.Headers.Add("access_token", _tokenAuthOption.GenerateToken(user, expiresIn, "access_token"));
-                            actionExecutedContext.HttpContext.Response.Headers.Add("refresh_token", _tokenAuthOption.GenerateToken(user, expiresIn.AddSeconds(10), "refresh_token"));
+        //                if (refresh_token != null && refresh_token.Count() > 0)
+        //                {
+        //                    var requestAt = DateTime.Now;
+        //                    var identity = actionExecutedContext.HttpContext.User.Identity as ClaimsIdentity;
+        //                    identity.FindFirst("");
+        //                    var user = new UserLoginViewModel()
+        //                    {
+        //                        Id = Convert.ToInt32(identity.FindFirst("UserId").Value),
+        //                        UserName = identity.Name
+        //                    };
+        //                    var _tokenAuthOption = new TokenAuthOption();
+        //                    var expiresIn = requestAt + _tokenAuthOption.ExpiresSpan;
+        //                    actionExecutedContext.HttpContext.Response.Headers.Add("access_token", _tokenAuthOption.GenerateToken(user, expiresIn, "access_token"));
+        //                    actionExecutedContext.HttpContext.Response.Headers.Add("refresh_token", _tokenAuthOption.GenerateToken(user, expiresIn.AddSeconds(10), "refresh_token"));
 
-                        }
+        //                }
 
 
-                    }
-                }
-            }
-            base.OnActionExecuted(actionExecutedContext);
+        //            }
+        //        }
+        //    }
+        //    base.OnActionExecuted(actionExecutedContext);
 
-        }
+        //}
     }
 }

@@ -6,15 +6,16 @@ using Stock.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Stock.Business.Contracts
 {
     [FactoryReference("Stock.Business.Commands.SaleBusiness, Stock.Business")]
     public interface ISaleBusiness : IBusinessBase<Sale>
     {
-        SumByQuantity GetDailySalesAmout(RequestBase request);
-        SumByQuantity GetMonthSalesAmout(RequestBase request);
-        SumByQuantity GetDailyProfit(RequestBase request);
-        SumByQuantity GetMonthProfit(RequestBase request);
+        Task<SumByQuantity> GetDailySalesAmout(RequestBase request);
+        Task<SumByQuantity> GetMonthSalesAmout(RequestBase request);
+        Task<SumByQuantity> GetDailyProfit(RequestBase request);
+        Task<SumByQuantity> GetMonthProfit(RequestBase request);
     }
 }

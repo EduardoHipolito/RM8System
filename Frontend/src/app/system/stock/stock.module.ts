@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { StockRouting } from './stock.routing'
 import { FrameworkModule } from '../_framework/framework.module';
-import { HttpModule, XHRBackend } from '@angular/http';
 import { CategoryComponent } from './category/category.component'
 import { SupplierComponent } from './supplier/supplier.component';
 import { ProductComponent } from './product/product.component';
@@ -18,14 +17,15 @@ import { SaleService } from './sale/sale.service';
 import { ProductEntryComponent } from './productentry/productentry.component';
 import { ProductSaleComponent } from './productsale/productsale.component';
 import { PaymentComponent } from './payment/payment.component';
-import { ExtendedXHRBackend } from '../_framework/http/extendedXHRBackend';
+import { ExtendedHttpInterceptor } from '../_framework/http/extendedHttpInterceptor';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
+    HttpClientModule,
     FrameworkModule,
     StockRouting
 
@@ -44,7 +44,8 @@ import { ExtendedXHRBackend } from '../_framework/http/extendedXHRBackend';
     PaymentComponent
   ],
   providers: [
-    { provide: XHRBackend, useClass: ExtendedXHRBackend },
+    { provide: HTTP_INTERCEPTORS, useClass: ExtendedHttpInterceptor, multi: true },
+    // { provide: XHRBackend, useClass: ExtendedXHRBackend },
     StockSummaryService,
     SaleService
   ],

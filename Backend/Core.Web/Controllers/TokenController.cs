@@ -15,6 +15,7 @@ using Framework.Business.Exceptions;
 using Framework.Business.Factory;
 using Framework.Business.Request;
 using Framework.Business.Response;
+using Framework.Helpers;
 using Framework.Web;
 using Framework.Web.Auth;
 using Framework.Web.Controllers;
@@ -45,7 +46,7 @@ namespace Core.Web.Controllers
                     var requestAt = DateTime.Now;
                     var expiresIn = requestAt + _tokenAuthOption.ExpiresSpan;
                     var token = _tokenAuthOption.GenerateToken(user, expiresIn, "access_token");
-                    var refresh = _tokenAuthOption.GenerateToken(user, expiresIn.AddMinutes(10), "refresh_token");
+                    //var refresh = _tokenAuthOption.GenerateToken(user, expiresIn.AddMinutes(10), "refresh_token");
                     var request = this.CreateRequest<RequestBase>();
                     request.UserId = IdUsuario??0;
 
@@ -58,7 +59,7 @@ namespace Core.Web.Controllers
                             expiresIn = _tokenAuthOption.ExpiresSpan.TotalSeconds,
                             tokeyType = _tokenAuthOption.TokenType,
                             access_token = token,
-                            refresh_token = refresh,
+                            //refresh_token = refresh,
                             UserId = IdUsuario
                         }
                     });
@@ -74,6 +75,7 @@ namespace Core.Web.Controllers
             }
             catch (BusinessException ex)
             {
+                Log.Instance.ErrorLog(ex);
                 return Json(new ResponseResult
                 {
                     State = ResponseState.Failed,
@@ -104,5 +106,13 @@ namespace Core.Web.Controllers
                 }
             });
         }
+
+
+        //protected override void Dispose(bool disposing)
+        //{
+        //    this.business.Dispose();
+        //    this.userAplicationCompanyBusiness.Dispose();
+        //    base.Dispose(disposing);
+        //}
     }
 }

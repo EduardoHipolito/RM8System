@@ -6,6 +6,7 @@ using AutoMapper;
 using Framework.Business.Exceptions;
 using Framework.Business.Request;
 using Framework.Business.Response;
+using Framework.Helpers;
 using Framework.Web;
 using Framework.Web.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -22,11 +23,11 @@ namespace Stock.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetDailySalesAmout()
+        public async Task<ActionResult> GetDailySalesAmout()
         {
             try
             {
-                var Retorno = _business.GetDailySalesAmout(this.CreateRequest<RequestBase>());
+                var Retorno = await _business.GetDailySalesAmout(this.CreateRequest<RequestBase>());
                 return Json(new ResponseResult
                 {
                     State = ResponseState.Success,
@@ -35,6 +36,7 @@ namespace Stock.Web.Controllers
             }
             catch (BusinessException ex)
             {
+                Log.Instance.ErrorLog(ex);
                 return Json(new ResponseResult
                 {
                     State = ResponseState.Failed,
@@ -44,11 +46,11 @@ namespace Stock.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetMonthSalesAmout()
+        public async Task<ActionResult> GetMonthSalesAmout()
         {
             try
             {
-                var Retorno = _business.GetMonthSalesAmout(this.CreateRequest<RequestBase>());
+                var Retorno = await _business.GetMonthSalesAmout(this.CreateRequest<RequestBase>());
                 return Json(new ResponseResult
                 {
                     State = ResponseState.Success,
@@ -57,6 +59,7 @@ namespace Stock.Web.Controllers
             }
             catch (BusinessException ex)
             {
+                Log.Instance.ErrorLog(ex);
                 return Json(new ResponseResult
                 {
                     State = ResponseState.Failed,
@@ -66,11 +69,11 @@ namespace Stock.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetDailyProfit()
+        public async Task<ActionResult> GetDailyProfit()
         {
             try
             {
-                var Retorno = _business.GetDailyProfit(this.CreateRequest<RequestBase>());
+                var Retorno = await _business.GetDailyProfit(this.CreateRequest<RequestBase>());
                 return Json(new ResponseResult
                 {
                     State = ResponseState.Success,
@@ -79,6 +82,7 @@ namespace Stock.Web.Controllers
             }
             catch (BusinessException ex)
             {
+                Log.Instance.ErrorLog(ex);
                 return Json(new ResponseResult
                 {
                     State = ResponseState.Failed,
@@ -88,11 +92,11 @@ namespace Stock.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetMonthProfit()
+        public async Task<ActionResult> GetMonthProfit()
         {
             try
             {
-                var Retorno = _business.GetMonthProfit(this.CreateRequest<RequestBase>());
+                var Retorno = await _business.GetMonthProfit(this.CreateRequest<RequestBase>());
                 return Json(new ResponseResult
                 {
                     State = ResponseState.Success,
@@ -101,6 +105,7 @@ namespace Stock.Web.Controllers
             }
             catch (BusinessException ex)
             {
+                Log.Instance.ErrorLog(ex);
                 return Json(new ResponseResult
                 {
                     State = ResponseState.Failed,

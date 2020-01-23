@@ -10,7 +10,6 @@ import { TiposTelefone } from '../_domains/enums/TiposTelefone';
 import { TiposEndereco } from '../_domains/enums/TiposEndereco';
 import { TiposLogradouro } from '../_domains/enums/TiposLogradouro';
 import { FrameworkModule } from '../_framework/framework.module';
-import { HttpModule, XHRBackend } from '@angular/http';
 import { CountryComponent } from './country/country.component';
 import { StateComponent } from './state/state.component';
 import { CityComponent } from './city/city.component';
@@ -27,15 +26,16 @@ import { AddressItemComponent } from './address/addressitem/address.item.compone
 import { DocumentComponent } from './document/document.component';
 import { PhoneComponent } from './phone/phone.component';
 import { AddressService } from './address/address.service';
-import { ExtendedXHRBackend } from '../_framework/http/extendedXHRBackend';
 import { HomeService } from './home/home.service';
+import { ExtendedHttpInterceptor } from '../_framework/http/extendedHttpInterceptor';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
+    HttpClientModule,
     FrameworkModule,
     BaseRouting
   ],
@@ -63,7 +63,8 @@ import { HomeService } from './home/home.service';
     AplicationComponent
   ],
   providers: [
-    { provide: XHRBackend, useClass: ExtendedXHRBackend },
+    { provide: HTTP_INTERCEPTORS, useClass: ExtendedHttpInterceptor, multi: true },
+    // { provide: XHRBackend, useClass: ExtendedXHRBackend },
     AddressService,
     HomeService
   ],

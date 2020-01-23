@@ -1,4 +1,5 @@
 using Framework.Business.Response;
+using Framework.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
@@ -7,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Gateway
@@ -18,6 +20,19 @@ namespace Gateway
         public bool isAuthentication { get; set; }
 
         static HttpClient client = new HttpClient();
+
+        private void SetClient()
+        {
+            var networkCredential = new NetworkCredential(
+                "user name",
+                "password",
+                "domain");
+
+            var handler = new HttpClientHandler { Credentials = networkCredential };
+
+            client = new HttpClient(handler);
+        }
+
         public Destination(string uri, bool requiresAuthentication)
         {
             Uri = uri;
@@ -114,8 +129,33 @@ namespace Gateway
             requestMessage.Headers.TryAddWithoutValidation("IdCompany", IdCompany.ToString());
             requestMessage.Headers.TryAddWithoutValidation("UserId", UserId.ToString());
 
+            var sb = new StringBuilder();
+            sb.AppendLine("||||||||||||||||||||||||||");
+            sb.AppendLine("Send async");
+            sb.AppendLine("||||||||||||||||||||||||||");
+            Log.Instance.Function(sb);
+            try
+            {
+
             using (var responseMessage = await client.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead, context.RequestAborted))
             {
+                 sb = new StringBuilder();
+                sb.AppendLine("||||||||||||||||||||||||||");
+                sb.AppendLine("responseMessage");
+                sb.AppendLine(responseMessage.StatusCode.ToString());
+                foreach (var item in responseMessage.Headers)
+                {
+                    sb.AppendLine(item.Key + " -- "+item.Value);
+                }
+                sb.AppendLine("||||||||||||||||||||||||||");
+                Log.Instance.Function(sb);
+
+                if (responseMessage.StatusCode != HttpStatusCode.OK && responseMessage.StatusCode != HttpStatusCode.NoContent)
+                {
+                    var ex = new Exception(responseMessage.Content.ReadAsStringAsync().Result);
+                    Log.Instance.ErrorLog(ex);
+                }
+
                 // If the service is temporarily unavailable, throw to retry later.
                 if (responseMessage.StatusCode == HttpStatusCode.ServiceUnavailable)
                 {
@@ -148,7 +188,16 @@ namespace Gateway
                 context.Response.Headers.Remove("transfer-encoding");
 
                 // Copy the response content
-                await responseMessage.Content.CopyToAsync(context.Response.Body);
+                if (responseMessage.StatusCode != HttpStatusCode.NoContent)
+                {
+                    await responseMessage.Content.CopyToAsync(context.Response.Body);
+                }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.ErrorLog(ex);
+                throw;
             }
         }
 

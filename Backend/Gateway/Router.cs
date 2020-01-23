@@ -9,6 +9,8 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Framework.Business.Response;
+using Framework.Helpers;
+using System.Text;
 
 namespace Gateway
 {
@@ -44,9 +46,16 @@ namespace Gateway
             try
             {
                 destination = Routes.First(r => r.Endpoint.Equals(basePath)).Destination;
+                var sb = new StringBuilder();
+                sb.AppendLine("||||||||||||||||||||||||||");
+                sb.AppendLine("GET DESTINATION");
+                sb.AppendLine(destination.Uri);
+                sb.AppendLine("||||||||||||||||||||||||||");
+                Log.Instance.Function(sb);
             }
-            catch
+            catch(Exception ex)
             {
+                Log.Instance.ErrorLog(ex);
                 context.Response.StatusCode = 200;
                 await context.Response.WriteAsync(await ConstructErrorMessage("The path could not be found.", ResponseState.Failed).Content.ReadAsStringAsync());
                 return;
@@ -55,6 +64,13 @@ namespace Gateway
             int IdCompany, UserId;
             if (ValidateAuthentication(destination.RequiresAuthentication, context, out IdCompany,out UserId))
             {
+
+                var sb = new StringBuilder();
+                sb.AppendLine("||||||||||||||||||||||||||");
+                sb.AppendLine("Send request");
+                sb.AppendLine(destination.Uri);
+                sb.AppendLine("||||||||||||||||||||||||||");
+                Log.Instance.Function(sb);
                 await destination.SendRequest(context, IdCompany, UserId);
                 return;
             }

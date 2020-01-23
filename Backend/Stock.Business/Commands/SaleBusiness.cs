@@ -15,6 +15,7 @@ using Framework.Business.Helpers;
 using Stock.Business.Message.Requests;
 using System.Linq;
 using Stock.Business.Entities;
+using System.Threading.Tasks;
 
 namespace Stock.Business.Commands
 {
@@ -45,68 +46,80 @@ namespace Stock.Business.Commands
             return response;
         }
 
-        public SumByQuantity GetDailyProfit(RequestBase request)
+        public async Task<SumByQuantity> GetDailyProfit(RequestBase request)
         {
             DateTime startDateTime = DateTime.Today;
             DateTime endDateTime = DateTime.Today.AddDays(1).AddTicks(-1);
 
-            var list = (from s in this._dataAccess.GetAll(request.IdCompany)
+            var asyncEnumerable =  await (from s in this._dataAccess.GetAll(request.IdCompany)
+                                   join ps in this._dataAccess.Context.ProductSale on s.Id equals ps.SaleId
+                                   join p in this._dataAccess.Context.Product on ps.IdProduct equals p.Id
+                                   join pe in this._dataAccess.Context.ProductEntry on p.Id equals pe.IdProduct
+                                   where (s.CreateDate >= startDateTime && s.CreateDate <= endDateTime)
+                                   group new { s.Discount, ps.Quantity, pe.UnitPrice, p.Price } by p.Id into g
+                                   select (((g.Sum(s => s.Price) * g.Sum(s => s.Quantity)) - g.Sum(s => s.Discount)) - (g.Sum(s => s.UnitPrice) * g.Sum(s => s.Quantity)))).ToAsyncEnumerable().ToList();
+
+
+            var list = asyncEnumerable.GroupBy(g => g)
+                  .Select(s => new SumByQuantity { Sum = s.Sum(), Quantity = s.Count() });
+
+            return new SumByQuantity { Quantity = list.Count(), Sum = list.Sum(s => s.Sum) };
+        }
+
+        public async Task<SumByQuantity> GetDailySalesAmout(RequestBase request)
+        {
+            DateTime startDateTime = DateTime.Today;
+            DateTime endDateTime = DateTime.Today.AddDays(1).AddTicks(-1);
+
+            var asyncEnumerable = await (from s in this._dataAccess.GetAll(request.IdCompany)
                         join ps in this._dataAccess.Context.ProductSale on s.Id equals ps.SaleId
                         join p in this._dataAccess.Context.Product on ps.IdProduct equals p.Id
-                        join pe in this._dataAccess.Context.ProductEntry on p.Id equals pe.IdProduct
                         where (s.CreateDate >= startDateTime && s.CreateDate <= endDateTime)
-                        group new { s.Discount, ps.Quantity, pe.UnitPrice, p.Price } by p.Id into g
-                        select (((g.Sum(s => s.Price) * g.Sum(s => s.Quantity)) - g.Sum(s => s.Discount)) - (g.Sum(s => s.UnitPrice) * g.Sum(s => s.Quantity)))).ToList().GroupBy(g => g)
+                        group new { s.Discount, ps.Quantity, p.Price } by p.Id into g
+                        select (((g.Sum(s => s.Price) * g.Sum(s => s.Quantity)) - g.Sum(s => s.Discount)))).ToAsyncEnumerable().ToList();
+            
+            
+          var list = asyncEnumerable.GroupBy(g => g)
                 .Select(s => new SumByQuantity { Sum = s.Sum(), Quantity = s.Count() });
 
             return new SumByQuantity { Quantity = list.Count(), Sum = list.Sum(s => s.Sum) };
         }
 
-        public SumByQuantity GetDailySalesAmout(RequestBase request)
-        {
-            DateTime startDateTime = DateTime.Today;
-            DateTime endDateTime = DateTime.Today.AddDays(1).AddTicks(-1);
-
-            var list = (from s in this._dataAccess.GetAll(request.IdCompany)
-                    join ps in this._dataAccess.Context.ProductSale on s.Id equals ps.SaleId
-                    join p in this._dataAccess.Context.Product on ps.IdProduct equals p.Id
-                    where (s.CreateDate >= startDateTime && s.CreateDate <= endDateTime)
-                    group new { s.Discount, ps.Quantity, p.Price } by p.Id into g
-                    select (((g.Sum(s => s.Price) * g.Sum(s => s.Quantity)) - g.Sum(s => s.Discount)))).ToList().GroupBy(g => g)
-                .Select(s => new SumByQuantity { Sum = s.Sum(), Quantity = s.Count() });
-
-            return new SumByQuantity { Quantity = list.Count(), Sum = list.Sum(s => s.Sum) };
-        }
-
-        public SumByQuantity GetMonthProfit(RequestBase request)
+        public async Task<SumByQuantity> GetMonthProfit(RequestBase request)
         {
             var year = DateTime.Today.Year;
             var month = DateTime.Today.Month;
 
-            var list = (from s in this._dataAccess.GetAll(request.IdCompany)
+            var asyncEnumerable = await (from s in this._dataAccess.GetAll(request.IdCompany)
                     join ps in this._dataAccess.Context.ProductSale on s.Id equals ps.SaleId
                     join p in this._dataAccess.Context.Product on ps.IdProduct equals p.Id
                     join pe in this._dataAccess.Context.ProductEntry on p.Id equals pe.IdProduct
                     where (s.CreateDate.Year >= year && s.CreateDate.Month <= month)
                     group new { s.Discount, ps.Quantity, pe.UnitPrice, p.Price } by p.Id into g
-                    select (((g.Sum(s => s.Price) * g.Sum(s => s.Quantity)) - g.Sum(s => s.Discount)) - (g.Sum(s => s.UnitPrice) * g.Sum(s => s.Quantity)))).ToList().GroupBy(g => g)
-                .Select(s => new SumByQuantity { Sum = s.Sum(), Quantity = s.Count() });
+                    select (((g.Sum(s => s.Price) * g.Sum(s => s.Quantity)) - g.Sum(s => s.Discount)) - (g.Sum(s => s.UnitPrice) * g.Sum(s => s.Quantity)))).ToAsyncEnumerable().ToList();
+
+
+            var list = asyncEnumerable.GroupBy(g => g)
+                  .Select(s => new SumByQuantity { Sum = s.Sum(), Quantity = s.Count() });
 
             return new SumByQuantity { Quantity = list.Count(), Sum = list.Sum(s => s.Sum) };
         }
 
-        public SumByQuantity GetMonthSalesAmout(RequestBase request)
+        public async Task<SumByQuantity> GetMonthSalesAmout(RequestBase request)
         {
             var year = DateTime.Today.Year;
             var month = DateTime.Today.Month;
 
-            var list = (from s in this._dataAccess.GetAll(request.IdCompany)
+            var asyncEnumerable = await (from s in this._dataAccess.GetAll(request.IdCompany)
                     join ps in this._dataAccess.Context.ProductSale on s.Id equals ps.SaleId
                     join p in this._dataAccess.Context.Product on ps.IdProduct equals p.Id
                     where (s.CreateDate.Year >= year && s.CreateDate.Month <= month)
                     group new { s.Discount, ps.Quantity, p.Price } by p.Id into g
-                    select (((g.Sum(s => s.Price) * g.Sum(s => s.Quantity)) - g.Sum(s => s.Discount)))).ToList().GroupBy(g => g)
-                .Select(s => new SumByQuantity { Sum = s.Sum(), Quantity = s.Count() });
+                    select (((g.Sum(s => s.Price) * g.Sum(s => s.Quantity)) - g.Sum(s => s.Discount)))).ToAsyncEnumerable().ToList();
+
+
+            var list = asyncEnumerable.GroupBy(g => g)
+                  .Select(s => new SumByQuantity { Sum = s.Sum(), Quantity = s.Count() });
 
             return new SumByQuantity { Quantity = list.Count(), Sum = list.Sum(s => s.Sum) };
         }

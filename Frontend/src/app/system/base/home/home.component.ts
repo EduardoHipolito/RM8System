@@ -1,8 +1,9 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { NotificationsService } from '../../_framework/notification/notifications.service';
 import { AuthService } from '../../_framework/auth/auth.service';
 import { HomeService } from './home.service';
 import { SumByQuantity } from '../../_domains/SumByQuantity';
+import { ResponseResult } from '../../_framework/models/ResponseResult';
 
 
 @Component({
@@ -12,11 +13,11 @@ import { SumByQuantity } from '../../_domains/SumByQuantity';
 })
 export class HomeComponent implements AfterViewInit {
 
-  _day:number = 0;
-  _dayText:string = "";
-  _month:number = 0;
-  _monthText:string = "";
-  _date:any = Date.now();
+  _day: number = 0;
+  _dayText: string = "";
+  _month: number = 0;
+  _monthText: string = "";
+  _date: any = Date.now();
   _dailySales: boolean = false;
   _dailyEntries: boolean = false;
   _dailyProfit: boolean = false;
@@ -26,18 +27,25 @@ export class HomeComponent implements AfterViewInit {
   _dailySalesValue: SumByQuantity = new SumByQuantity();
   _dailyEntriesValue: SumByQuantity = new SumByQuantity();
   _dailyProfitValue: SumByQuantity = new SumByQuantity();
-  _monthSalesValue: SumByQuantity = new SumByQuantity(); 
+  _monthSalesValue: SumByQuantity = new SumByQuantity();
   _monthEntriesValue: SumByQuantity = new SumByQuantity();
   _monthProfitValue: SumByQuantity = new SumByQuantity();
+  interval: any;
 
   constructor(private notificationsService: NotificationsService, private homeService: HomeService, private authService: AuthService) {
   }
 
   ngAfterViewInit() {
     var context = this;
-    setTimeout(function () { context.UpdatePermitions(); context.GetValues(); }, 5000);
-    setInterval(function () { context.UpdatePermitions(); context.GetValues(); }, 300000);
+    setTimeout(function () {
+      context.UpdatePermitions(); context.GetValues();
+    }, 5000);
   }
+
+  reload() {
+    this.UpdatePermitions(); this.GetValues();
+  }
+
   UpdatePermitions() {
     this._dailySales = this.authService.hasPermition('DAILYSALESUMMARY');
     this._dailyEntries = this.authService.hasPermition('DAILYENTRYSUMMARY');
@@ -50,42 +58,42 @@ export class HomeComponent implements AfterViewInit {
     if (this._dailySales) {
       this.homeService.GetDailySalesAmout()
         .then(response => {
-          var res = response.json();
+          var res = <ResponseResult>response;
           this._dailySalesValue = res.Data;
         });
     }
     if (this._monthSales) {
       this.homeService.GetMonthSalesAmout()
         .then(response => {
-          var res = response.json();
+          var res = <ResponseResult>response;
           this._monthSalesValue = res.Data;
         });
     }
     if (this._dailyProfit) {
       this.homeService.GetDailyProfit()
         .then(response => {
-          var res = response.json();
+          var res = <ResponseResult>response; 
           this._dailyProfitValue = res.Data;
         });
     }
     if (this._monthProfit) {
       this.homeService.GetMonthprofit()
         .then(response => {
-          var res = response.json();
+          var res = <ResponseResult>response;
           this._monthProfitValue = res.Data;
         });
     }
     if (this._dailyEntries) {
       this.homeService.GetDailyEntries()
         .then(response => {
-          var res = response.json();
+          var res = <ResponseResult>response;
           this._dailyEntriesValue = res.Data;
         });
     }
     if (this._monthEntries) {
       this.homeService.GetMonthEntries()
         .then(response => {
-          var res = response.json();
+          var res = <ResponseResult>response;
           this._monthEntriesValue = res.Data;
         });
     }

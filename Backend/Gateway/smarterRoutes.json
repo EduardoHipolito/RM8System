@@ -25,5 +25,6 @@
   "authenticationService": {
     "uri": "http://danilorenato-001-site2.ctempurl.com/coreweb/token/ValidateAutentication",
     "isAuthentication": "true"
+
   }
 }

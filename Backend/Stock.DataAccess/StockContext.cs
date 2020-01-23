@@ -12,12 +12,13 @@ using System;
 //Server=localhost\SQLEXPRESS;Database=DBStock_Test;User Id=sa;Password=93298440
 //Server=LAPTOP-VC2FBTM3\SQLEXPRESS;Database=RM8_Stock;User Id=RM8_USER;Password=RM8_USER
 //Data Source=SQL5045.site4now.net;Initial Catalog=DB_A4DF0B_EduardoHipolito;User Id=DB_A4DF0B_EduardoHipolito_admin;Password=2007Dudu;
+//@"Data Source=sql7005.site4now.net;Initial Catalog=DB_A3D636_RM8;User Id=DB_A3D636_RM8_admin;Password=rm8bluto;Connect Timeout = 180"
 
 namespace Stock.DataAccess
 {
     public class StockContext : ContextBase
     {
-        private const string connection = @"Data Source=sql7005.site4now.net;Initial Catalog=DB_A3D636_RM8;User Id=DB_A3D636_RM8_admin;Password=rm8bluto;Connect Timeout = 60";
+        private const string connection = @"Data Source=198.38.83.200;Initial Catalog=dstudioc_rm8stock_preprod;User Id=dstudioc_rm8;Password=!s$@JFjm$3f!E2#n;Connect Timeout = 180";
 
         public StockContext() : base(connection, DataBaseType.SqlServer)
         { }

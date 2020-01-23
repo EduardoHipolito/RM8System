@@ -1,6 +1,6 @@
 <form [formGroup]="formG">
   <div formArrayName="Payments">
-    <div class="list-form-item" *ngFor="let payment of formG.controls.Payments.controls; let i = index">
+    <div class="list-form-item" *ngFor="let payment of formG.controls.Payments['controls']; let i = index">
       <div [formGroupName]="i">
         <div class="row">
           <DropDown [label]="'Forma de pag'" class="col-2" (SelectChange)="DropDownFormOfPaymentChange($event)" #ddlFormOfPayment

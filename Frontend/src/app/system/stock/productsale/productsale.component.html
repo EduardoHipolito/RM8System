@@ -1,6 +1,6 @@
 <form [formGroup]="formG">
   <div formArrayName="Products">
-    <div class="list-form-item" *ngFor="let product of formG.controls.Products.controls; let i = index">
+    <div class="list-form-item" *ngFor="let product of formG.controls.Products['controls']; let i = index">
       <div [formGroupName]="i">
         <div class="row">
           <DropDown [label]="'Produto'" class="col-3" (SelectChange)="DropDownProductChange($event,product)" [form]="product" [controlName]="'IdProduct'"

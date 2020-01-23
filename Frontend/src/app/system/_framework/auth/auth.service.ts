@@ -1,7 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/Rx';
 
 import { AuthCookie } from './auth.cookie';
@@ -14,6 +13,7 @@ import { urlBase, loginStock } from '../helppers/configs';
 import { ResponseResult } from '../models/ResponseResult'
 import { RequestById } from '../models/RequestById';
 import { ResponseState } from '../models/enum/ResponseState';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 @Injectable()
@@ -22,36 +22,35 @@ export class AuthService {
     constructor(
         private notificationsService: NotificationsService,
         private authCookie: AuthCookie,
-        private http: Http,
+        private http: HttpClient,
         private authProps: AuthProps,
         private router: Router) { }
     private companies: Array<Company>;
 
     signIn(user: UserViewModel) {
 
-        let headers = new Headers({ 'Accept': 'application/json' });
+        let headers = new HttpHeaders({ 'Accept': 'application/json' });
         headers.append('Content-Type', `application/x-www-form-urlencoded`);
-        let options = new RequestOptions({ headers: headers });
         let context = this;
-        this.http.post(loginStock + "/Token/Login", user, options)
+        this.http.post(loginStock + "/Token/Login", user, { headers: headers })
             .toPromise()
             .then(response => {
-                var res: ResponseResult = response.json();
+                let res: ResponseResult = <ResponseResult>response;
                 if (res.State == ResponseState.Success) {
                     context.authProps = <AuthProps>res.Data;
                     if (context.authProps.access_token != null) {
                         context.authCookie.SetIntoLocalStorage("access_token", context.authProps.access_token);
                         context.authCookie.SetIntoLocalStorage("token_type", context.authProps.tokeyType);
                         context.authCookie.SetIntoLocalStorage("expires_in", context.authProps.expiresIn);
-                        context.authCookie.SetIntoLocalStorage("refresh_token", context.authProps.refresh_token);
+                        // context.authCookie.SetIntoLocalStorage("refresh_token", context.authProps.refresh_token);
                         context.authCookie.SetIntoLocalStorage("UserId", context.authProps.UserId);
                         this.getCompanies()
-                            .then(response => {
-                                var res: ResponseResult = response.json();
+                            .then(response2 => {
+                                let res2: ResponseResult = <ResponseResult>response2;
 
-                                if (res.State == ResponseState.Success) {
+                                if (res2.State == ResponseState.Success) {
 
-                                    context.companies = <Array<Company>>res.Data;
+                                    context.companies = <Array<Company>>res2.Data;
 
                                     context.authCookie.SetIntoLocalStorage("IdCompany", context.companies[0].Id);
                                     context.router.navigateByUrl('/system/base/home');

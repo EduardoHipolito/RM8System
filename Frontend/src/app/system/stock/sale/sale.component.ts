@@ -14,6 +14,7 @@ import { CurrencyPipe } from '@angular/common'
 import { SaleService } from './sale.service';
 import { reduce } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { ResponseResult } from '../../_framework/models/ResponseResult';
 
 @Component({
   selector: 'sale',
@@ -179,7 +180,7 @@ export class SaleComponent extends baseComponent implements OnInit {
       this._saleService.Save(this.currentItem)
         .then(
           response => {
-            let res = response.json();
+            var res = <ResponseResult>response;
             if (res.State == 1) {
               this.notificationsService.success('Venda realizada com sucesso');
               this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() =>

@@ -1,14 +1,14 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/Rx';
 import { urlBase, urlStock } from '../../_framework/helppers/configs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class HomeService {
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
 
   }
 

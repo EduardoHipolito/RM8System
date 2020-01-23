@@ -1,12 +1,12 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/Rx';
 
 import { urlBase } from '../helppers/configs';
 import { RequestById } from '../models/RequestById';
 import { AuthCookie } from '../auth/auth.cookie';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class SidebarService {
@@ -17,7 +17,7 @@ export class SidebarService {
 
   protected _currentMenuItem = {};
 
-  constructor(private http: Http, private _coockie: AuthCookie,
+  constructor(private http: HttpClient, private _coockie: AuthCookie,
     private router: Router) {
 
   }

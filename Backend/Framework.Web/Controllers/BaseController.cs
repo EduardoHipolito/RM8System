@@ -12,11 +12,11 @@ namespace Framework.Web.Controllers
     [Route("api/[controller]/[Action]")]
     public class BaseController : Controller
     {
-        protected T CreateRequest<T>() where T : RequestBase 
+        protected T CreateRequest<T>() where T : RequestBase
         {
             WebAPIRequestHelper webAPIRequestHelper = new WebAPIRequestHelper();
 
-            var request= Activator.CreateInstance(typeof(T)) as T;
+            var request = Activator.CreateInstance(typeof(T)) as T;
 
             var requestHeaders = webAPIRequestHelper.GetHeadersFromRequest(this.HttpContext);
             request.UserId = requestHeaders.Where(x => x.Key == "UserId").Select(x => ConverToIntAndRegexHeadersParameters(x.Value)).FirstOrDefault();
@@ -25,11 +25,11 @@ namespace Framework.Web.Controllers
             return (T)request;
         }
 
-        private int ConverToIntAndRegexHeadersParameters ( string parameter)
+        private int ConverToIntAndRegexHeadersParameters(string parameter)
         {
             parameter = Regex.Replace(parameter, "[^0-9]+", string.Empty);
 
-            parameter = parameter == string.Empty ? "0": parameter;
+            parameter = parameter == string.Empty ? "0" : parameter;
 
             return Convert.ToInt32(parameter);
         }

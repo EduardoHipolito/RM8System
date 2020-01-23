@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 import { urlBase } from '../../_framework/helppers/configs';
 import { RequestBaseParameter } from '../../_framework/models/RequestBase';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class AddressService {
 
 
-    constructor(private http: Http) {
+    constructor(private http: HttpClient) {
     }
 
     getFromPostalCode(postal_cod: number) {

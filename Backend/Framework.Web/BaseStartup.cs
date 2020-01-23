@@ -21,6 +21,7 @@ namespace Framework.Web
     {
         private static bool IsOriginAllowed(string host)
         {
+            Log.Instance.Function(new System.Text.StringBuilder().Append("Recept HOST = " + host));
             return "263e51096d956c4948253b97e68a5769" == host;
         }
 
@@ -42,8 +43,9 @@ namespace Framework.Web
             var corsBuilder = new CorsPolicyBuilder();
             corsBuilder.AllowAnyHeader();
             corsBuilder.AllowAnyMethod();
-            corsBuilder.SetIsOriginAllowed(IsOriginAllowed);
-            corsBuilder.AllowCredentials();
+            corsBuilder.AllowAnyOrigin();
+            //corsBuilder.SetIsOriginAllowed(IsOriginAllowed);
+            corsBuilder.DisallowCredentials();
 
             services.AddCors(options =>
             {

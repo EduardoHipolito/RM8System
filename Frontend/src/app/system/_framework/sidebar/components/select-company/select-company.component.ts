@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SelectCompanyService } from './select-company.service';
 import { Company } from '../../../../_domains/Company';
 import { AuthCookie } from '../../../auth/auth.cookie';
+import { ResponseResult } from '../../../models/ResponseResult';
 
 @Component({
   selector: 'SelectCompany',
@@ -18,7 +19,7 @@ export class SelectCompanyComponent implements OnInit {
   public ngOnInit(): void {
     this._service.updateCompanies()
       .then(response => {
-        var res = response.json()
+        var res = <ResponseResult>response;
         this.companies = res.Data;
         this.getCompanyCoockie()
       });

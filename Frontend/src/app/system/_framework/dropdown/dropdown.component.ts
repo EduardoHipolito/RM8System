@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { DropDownSetings, MethodEnum } from './DropDownSetings';
 import { DropDownService } from './dropdown.service';
+import { ResponseResult } from '../models/ResponseResult';
 
 @Component({
     selector: 'DropDown',
@@ -44,7 +45,7 @@ export class DropDownComponent implements AfterViewInit {
                         this.dropDownService.Get(this.setings.ServiceMethodURL)
                             .then(
                                 response => {
-                                    let res = response.json();
+                                    let res = <ResponseResult>response;
                                     context.setings.DataSource = res.Data;
                                 },
                                 error => console.log(error)
@@ -57,7 +58,7 @@ export class DropDownComponent implements AfterViewInit {
                         this.dropDownService.Post(this.setings.ServiceMethodURL, this.setings.Parameter)
                             .then(
                                 response => {
-                                    let res = response.json();
+                                    let res = <ResponseResult>response;
                                     context.setings.DataSource = res.Data;
                                 },
                                 error => console.log(error)

@@ -14,6 +14,7 @@ namespace Framework.DataAccess
 
     public class ContextBase : DbContext
     {
+        //public bool IsDisposed { get; set; } = false;
         public string ConnectionString { get; set; }
         public DataBaseType DataBaseType { get; set; }
 
@@ -73,7 +74,6 @@ namespace Framework.DataAccess
             //optionsBuilder.UseNpgsql(@"server=stampy-01.db.elephantsql.com;user id=fsmlbooq;password=vmbB2wPhUdAlhEHeX3O1uZT2KjVdWbzw;database=fsmlbooq"); //ProdTeste
         }
 
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplySing();
@@ -85,5 +85,11 @@ namespace Framework.DataAccess
 
             base.OnModelCreating(modelBuilder);
         }
+
+        //public override void Dispose()
+        //{
+        //    IsDisposed = true;
+        //    base.Dispose();
+        //}
     }
 }
